@@ -18,12 +18,12 @@ public struct SendPostRequestConfiguration {
         self.voteData = voteData
     }
     
-    var apiRoot: String
-    var token: String
-    var text: String
-    var tag: String?
-    var imageData: String?
-    var voteData: [String]?
+    public var apiRoot: String
+    public var token: String
+    public var text: String
+    public var tag: String?
+    public var imageData: String?
+    public var voteData: [String]?
 }
 
 struct SendPostRequestResult: DefaultRequestResult {

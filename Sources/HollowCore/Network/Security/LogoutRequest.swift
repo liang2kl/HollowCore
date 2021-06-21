@@ -15,8 +15,8 @@ public struct LogoutRequestConfiguration {
         self.token = token
     }
     
-    var apiRoot: String
-    var token: String
+    public var apiRoot: String
+    public var token: String
 }
 
 struct LogoutRequestResult: DefaultRequestResult {

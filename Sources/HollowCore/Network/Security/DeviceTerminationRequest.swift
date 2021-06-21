@@ -16,9 +16,9 @@ public struct DeviceTerminationRequestConfiguration {
         self.deviceUUID = deviceUUID
     }
     
-    var apiRoot: String
-    var token: String
-    var deviceUUID: String
+    public var apiRoot: String
+    public var token: String
+    public var deviceUUID: String
 }
 
 struct DeviceTerminationRequestResult: DefaultRequestResult {

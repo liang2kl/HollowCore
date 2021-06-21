@@ -15,8 +15,8 @@ public struct SystemMessageRequestConfiguration {
         self.token = token
     }
     
-    var apiRoot: String
-    var token: String
+    public var apiRoot: String
+    public var token: String
 }
 
 /// Wrapper for result of attempt to get system messages

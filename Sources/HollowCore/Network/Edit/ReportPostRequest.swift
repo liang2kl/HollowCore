@@ -17,12 +17,12 @@ public struct ReportPostRequestConfiguration {
         self.reason = reason
     }
     
-    var apiRoot: String
-    var token: String
-    var postId: Int
-    var type: PostPermissionType
+    public var apiRoot: String
+    public var token: String
+    public var postId: Int
+    public var type: PostPermissionType
     // reason can't be empty
-    var reason: String
+    public var reason: String
 }
 
 struct ReportPostRequestResult: DefaultRequestResult {

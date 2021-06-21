@@ -16,9 +16,9 @@ public struct UpdateDeviceTokenRequestConfiguration {
         self.deviceToken = deviceToken
     }
     
-    var apiRoot: String
-    var token: String
-    var deviceToken: Data
+    public var apiRoot: String
+    public var token: String
+    public var deviceToken: Data
 }
 
 struct UpdateDeviceTokenRequestResult: DefaultRequestResult {

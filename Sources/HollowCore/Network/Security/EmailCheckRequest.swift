@@ -16,7 +16,7 @@ public struct EmailCheckRequestConfiguration {
         self.reCAPTCHAInfo = reCAPTCHAInfo
     }
     
-    var apiRoot: String
+    public var apiRoot: String
     /// `reCAPTCHA` version
     //    NO USE!
     public enum ReCAPTCHAVersion: String {
@@ -24,33 +24,22 @@ public struct EmailCheckRequestConfiguration {
         case v3 = "v3"
     }
     /// User's email to be checked, required
-    var email: String
+    public var email: String
 
     /// Info of `reCAPTCHA`, optional
-    var reCAPTCHAInfo: (token: String, version: ReCAPTCHAVersion)?
+    public var reCAPTCHAInfo: (token: String, version: ReCAPTCHAVersion)?
 }
 
 /// Result Data of EmailCheck
-public struct EmailCheckRequestResultData {
-    /// Result type of email checking.
-    ///
-    /// Please init with `EmailCheckRequest.ResultType(rawValue: Int)`, and should
-    /// show error with `nil`, which means receiving negative code.
-    public enum ResultType: Int, Equatable {
-        /// Old user, shuold input password to login.
-        case oldUser = 0
-        /// New user, should check email for valid code and create password to sign up.
-        case newUser = 1
-        /// New user with old thuhole token, should create password to sign up.
-        case newUserWithToken = 2
-        /// Need recatpcha verification, we need to create a recaptcha popover.
-        case reCAPTCHANeeded = 3
-    }
-    
-    /// The type of result received.
-    public var result: ResultType
-    /// Error message, if error occured.
-    //var massage: String?
+public enum EmailCheckType: Int, Equatable {
+    /// Old user, shuold input password to login.
+    case oldUser = 0
+    /// New user, should check email for valid code and create password to sign up.
+    case newUser = 1
+    /// New user with old thuhole token, should create password to sign up.
+    case newUserWithToken = 2
+    /// Need recatpcha verification, we need to create a recaptcha popover.
+    case reCAPTCHANeeded = 3
 }
 
 /// Result of email checking.
@@ -63,7 +52,7 @@ public struct EmailCheckRequest: DefaultRequest {
     
     public typealias Configuration = EmailCheckRequestConfiguration
     typealias Result = EmailCheckRequestResult
-    public typealias ResultData = EmailCheckRequestResultData
+    public typealias ResultData = EmailCheckType
     public typealias Error = DefaultRequestError
 
     var configuration: EmailCheckRequestConfiguration
@@ -84,10 +73,7 @@ public struct EmailCheckRequest: DefaultRequest {
             urlPath: urlPath,
             parameters: parameters,
             method: .post,
-            transformer: { result in
-                guard let resultType = EmailCheckRequestResultData.ResultType.init(rawValue: result.code) else { return nil }
-                return EmailCheckRequestResultData(result: resultType)
-            },
+            transformer: { EmailCheckType(rawValue: $0.code) },
             completion: completion
         )
     }

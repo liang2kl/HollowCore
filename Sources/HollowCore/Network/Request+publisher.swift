@@ -11,7 +11,7 @@ import Combine
 extension Request {
     /// The publisher for a single request.
     public var publisher: RequestPublisher<Self> {
-        return RequestPublisher(configuration: configuration)
+        return RequestPublisher(self)
     }
     
     /// Create a combined publisher for multiple asynchronous requests.

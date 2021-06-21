@@ -14,11 +14,8 @@ public struct GetConfigRequestConfiguration {
     public init(configUrl: String) {
         self.configUrl = configUrl
     }
-    var configUrl: String
+    public var configUrl: String
 }
-
-/// Result of requesting system config.
-public typealias GetConfigRequestResult = HollowConfig
 
 public enum GetConfigRequestError: Error {
     case serverError
@@ -33,9 +30,9 @@ public enum GetConfigRequestError: Error {
 /// Get Config Request
 public struct GetConfigRequest: _Request {
     public typealias Configuration = GetConfigRequestConfiguration
-    typealias Result = GetConfigRequestResult
+    typealias Result = HollowConfig
     public typealias Error = GetConfigRequestError
-    public typealias ResultData = GetConfigRequestResult
+    public typealias ResultData = HollowConfig
     
     var configuration: GetConfigRequestConfiguration
     
@@ -100,13 +97,13 @@ public struct GetConfigRequest: _Request {
     
     static private func validateConfig(_ config: GetConfigRequestResult) -> Bool {
         return
-            config.apiRootUrls != [] &&
-            config.emailSuffixes.count > 0 &&
-            config.imgBaseUrls != [] &&
-            config.name != "" &&
-            config.recaptchaUrl != "" &&
-            config.tosUrl != "" &&
-            config.privacyUrl != "" &&
-            config.rulesUrl != ""
-    }   
+        !config.apiRootUrls.isEmpty &&
+        !config.emailSuffixes.isEmpty &&
+        !config.imgBaseUrls.isEmpty &&
+        !config.name.isEmpty &&
+        !config.recaptchaUrl.isEmpty &&
+        !config.tosUrl.isEmpty &&
+        !config.privacyUrl.isEmpty &&
+        !config.rulesUrl.isEmpty
+    }
 }

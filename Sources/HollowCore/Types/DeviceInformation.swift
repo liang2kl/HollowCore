@@ -8,7 +8,14 @@
 import Foundation
 
 /// Information of a logged-in device.
-public struct DeviceInformationType: Codable {
+public struct DeviceInformation: Codable {
+    public init(deviceUUID: String, loginDate: Date, deviceInfo: String, deviceType: DeviceInformation.DeviceType) {
+        self.deviceUUID = deviceUUID
+        self.loginDate = loginDate
+        self.deviceInfo = deviceInfo
+        self.deviceType = deviceType
+    }
+    
     /// Device type.
     public enum DeviceType: Int, CustomStringConvertible , Codable {
         case web = 0

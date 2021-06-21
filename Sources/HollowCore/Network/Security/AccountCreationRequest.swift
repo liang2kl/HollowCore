@@ -19,19 +19,19 @@ public struct AccountCreationRequestConfiguration {
         self.deviceToken = deviceToken
     }
     
-    var apiRoot: String
+    public var apiRoot: String
     /// User's email.
-    var email: String
+    public var email: String
     /// store passwd
-    var password: String
+    public var password: String
     /// Device type, 2 for iOS.
     let deviceType = 2
     /// Device information.
-    var deviceInfo: String
+    public var deviceInfo: String
     /// Email valid code, optional, but one of `oldToken` and `validCode` must be present.
-    var validCode: String?
+    public var validCode: String?
     // TODO: Device token for APNs
-    var deviceToken: String?
+    public var deviceToken: String?
 }
 
 /// Result of account creation attempt.

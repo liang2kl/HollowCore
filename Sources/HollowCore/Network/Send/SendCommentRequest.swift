@@ -18,14 +18,14 @@ public struct SendCommentRequestConfiguration {
         self.replyCommentId = replyCommentId
     }
     
-    var apiRoot: String
-    var token: String
+    public var apiRoot: String
+    public var token: String
     
-    var text: String
-    var imageData: String?
+    public var text: String
+    public var imageData: String?
     /// Id of the post to be commented
-    var postId: Int
-    var replyCommentId: Int?
+    public var postId: Int
+    public var replyCommentId: Int?
 }
 
 struct SendCommentRequestResult: DefaultRequestResult {
@@ -35,7 +35,7 @@ struct SendCommentRequestResult: DefaultRequestResult {
 }
 
 public struct SendCommentRequestResultData {
-    var commentId: Int?
+    public var commentId: Int?
 }
 
 public struct SendCommentRequest: DefaultRequest {

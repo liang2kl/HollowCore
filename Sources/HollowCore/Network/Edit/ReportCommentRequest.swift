@@ -17,11 +17,11 @@ public struct ReportCommentRequestConfiguration {
         self.reason = reason
     }
     
-    var apiRoot: String
-    var token: String
-    var commentId: Int
-    var type: PostPermissionType
-    var reason: String
+    public var apiRoot: String
+    public var token: String
+    public var commentId: Int
+    public var type: PostPermissionType
+    public var reason: String
 }
 
 public struct ReportCommentRequest: DefaultRequest {

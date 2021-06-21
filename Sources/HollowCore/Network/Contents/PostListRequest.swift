@@ -16,9 +16,9 @@ public struct PostListRequestConfiguration {
         self.page = page
     }
     
-    var apiRoot: String
-    var token: String
-    var page: Int
+    public var apiRoot: String
+    public var token: String
+    public var page: Int
 }
 
 /// Result for PostListRequest

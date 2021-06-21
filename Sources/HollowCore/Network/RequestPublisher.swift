@@ -13,10 +13,14 @@ public struct RequestPublisher<R>: Publisher where R: Request {
     public typealias Output = R.ResultData
     public typealias Failure = R.Error
     
-    let configuration: R.Configuration
+    init(_ request: R) {
+        self.request = request
+    }
+    
+    let request: R
     
     public func receive<S>(subscriber: S) where S : Subscriber, Self.Failure == S.Failure, Self.Output == S.Input {
-        let subsription = RequestSubscription(request: R(configuration: configuration), subscriber: subscriber)
+        let subsription = RequestSubscription(request: request, subscriber: subscriber)
         subscriber.receive(subscription: subsription)
     }
 }

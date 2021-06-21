@@ -16,12 +16,12 @@ public struct EditAttentionRequestConfiguration {
         self.switchToAttention = switchToAttention
     }
     
-    var apiRoot: String
-    var token: String
+    public var apiRoot: String
+    public var token: String
     /// Post id.
-    var postId: Int
+    public var postId: Int
     /// `false` for cancel attention, `true` otherwise
-    var switchToAttention: Bool
+    public var switchToAttention: Bool
 }
 
 struct EditAttentionRequestResult: DefaultRequestResult {

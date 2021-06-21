@@ -15,27 +15,21 @@ public struct GetPushRequestConfiguration {
         self.token = token
     }
     
-    var apiRoot: String
-    var token: String
+    public var apiRoot: String
+    public var token: String
 }
 
 struct GetPushRequestResult: DefaultRequestResult {
-    var code: Int
-    var msg: String?
-    var data: PushNotificationResult?
-}
-
-public struct PushNotificationResult: Codable {
-    public var pushSystemMsg: Int
-    public var pushReplyMe: Int
-    public var pushFavorited: Int
+    public var code: Int
+    public var msg: String?
+    public var data: PushNotificationType?
 }
 
 public struct GetPushRequest: DefaultRequest {
     
     public typealias Configuration = GetPushRequestConfiguration
     typealias Result = GetPushRequestResult
-    public typealias ResultData = PushNotificationResult
+    public typealias ResultData = PushNotificationType
     public typealias Error = DefaultRequestError
     
     var configuration: GetPushRequestConfiguration

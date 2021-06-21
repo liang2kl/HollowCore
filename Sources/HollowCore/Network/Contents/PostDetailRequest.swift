@@ -9,13 +9,13 @@ import Foundation
 import Alamofire
 
 public struct PostDetailRequestConfiguration {
-    var apiRoot: String
-    var token: String
-    var postId: Int
+    public var apiRoot: String
+    public var token: String
+    public var postId: Int
     /// when don't need comments, only need main post, set `needComments` to false
-    var includeComments: Bool
-    var lastUpdateTimestamp: Int?
-    var cachedPost: PostWrapper?
+    public var includeComments: Bool
+    public var lastUpdateTimestamp: Int?
+    public var cachedPost: PostWrapper?
     
     public init(apiRoot: String, token: String, postId: Int, includeComments: Bool) {
         self.apiRoot = apiRoot

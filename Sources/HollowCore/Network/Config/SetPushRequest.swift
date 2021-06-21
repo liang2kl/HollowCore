@@ -16,9 +16,9 @@ public struct SetPushRequestConfiguration {
         self.type = type
     }
     
-    var apiRoot: String
-    var token: String
-    var type: PushNotificationType
+    public var apiRoot: String
+    public var token: String
+    public var type: PushNotificationType
 }
 
 struct SetPushRequestResult: DefaultRequestResult {

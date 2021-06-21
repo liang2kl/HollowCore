@@ -8,7 +8,13 @@
 
 import Foundation
 
-public struct PushNotificationType: Codable {
+public struct PushNotificationType: Codable, Equatable {
+    public init(pushSystemMsg: Bool, pushReplyMe: Bool, pushFavorited: Bool) {
+        self.pushSystemMsg = pushSystemMsg
+        self.pushReplyMe = pushReplyMe
+        self.pushFavorited = pushFavorited
+    }
+    
     public var pushSystemMsg: Bool
     public var pushReplyMe: Bool
     public var pushFavorited: Bool

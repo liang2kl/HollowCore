@@ -16,10 +16,10 @@ public struct SendVoteRequestConfiguration {
         self.postId = postId
     }
     
-    var apiRoot: String
-    var token: String
-    var option: String
-    var postId: Int
+    public var apiRoot: String
+    public var token: String
+    public var option: String
+    public var postId: Int
 }
 
 struct SendVoteRequestResult: DefaultRequestResult {

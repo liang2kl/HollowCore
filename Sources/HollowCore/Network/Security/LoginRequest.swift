@@ -18,12 +18,12 @@ public struct LoginRequestConfiguration {
         self.deviceToken = deviceToken
     }
     
-    var apiRoot: String
-    var email: String
-    var password: String
+    public var apiRoot: String
+    public var email: String
+    public var password: String
     let deviceType = 2
-    var deviceInfo: String
-    var deviceToken: String?
+    public var deviceInfo: String
+    public var deviceToken: String?
 }
 
 struct LoginRequestResult: DefaultRequestResult {

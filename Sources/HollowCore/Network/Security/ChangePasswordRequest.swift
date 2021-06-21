@@ -17,13 +17,13 @@ public struct ChangePasswordRequestConfiguration {
         self.newPassword = newPassword
     }
     
-    var apiRoot: String
+    public var apiRoot: String
     /// User's email
-    var email: String
+    public var email: String
     /// Previous hashed password
-    var oldPassword: String
+    public var oldPassword: String
     /// New hashed password
-    var newPassword: String
+    public var newPassword: String
 }
 
 /// Result of an changing password attempt.

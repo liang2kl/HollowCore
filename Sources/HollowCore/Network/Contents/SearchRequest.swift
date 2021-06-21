@@ -19,13 +19,13 @@ public struct SearchRequestConfiguration {
         self.includeComment = includeComment
     }
     
-    var apiRoot: String
-    var token: String
-    var keywords: String
-    var page: Int
-    var afterTimestamp: Int?
-    var beforeTimestamp: Int?
-    var includeComment: Bool
+    public var apiRoot: String
+    public var token: String
+    public var keywords: String
+    public var page: Int
+    public var afterTimestamp: Int?
+    public var beforeTimestamp: Int?
+    public var includeComment: Bool
 }
 
 public struct SearchRequest: DefaultRequest {

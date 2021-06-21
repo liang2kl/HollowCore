@@ -10,6 +10,11 @@ import SwiftUI
 
 /// ImageMetadata
 public struct ImageMetadata: Codable {
+    public init(w: CGFloat? = nil, h: CGFloat? = nil) {
+        self.w = w
+        self.h = h
+    }
+    
     public var w: CGFloat?
     public var h: CGFloat?
 }

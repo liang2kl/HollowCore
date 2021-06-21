@@ -16,10 +16,10 @@ public struct UnregisterRequestConfiguration {
         self.validCode = validCode
     }
     
-    var apiRoot: String
-    var email: String
-    var nonce: String
-    var validCode: String
+    public var apiRoot: String
+    public var email: String
+    public var nonce: String
+    public var validCode: String
 }
 
 struct UnregisterRequestResult: DefaultRequestResult {

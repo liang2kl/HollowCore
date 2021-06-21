@@ -14,8 +14,8 @@ public struct DeviceListRequestConfiguration {
         self.token = token
     }
     
-    var apiRoot: String
-    var token: String
+    public var apiRoot: String
+    public var token: String
 }
 
 struct DeviceListRequestResult: DefaultRequestResult {
@@ -32,7 +32,12 @@ struct DeviceListRequestResult: DefaultRequestResult {
 }
 
 public struct DeviceListRequestResultData: Codable {
-    public var devices: [DeviceInformationType]
+    public init(devices: [DeviceInformation], thisDeviceUUID: String) {
+        self.devices = devices
+        self.thisDeviceUUID = thisDeviceUUID
+    }
+    
+    public var devices: [DeviceInformation]
     public var thisDeviceUUID: String
 }
 
@@ -63,13 +68,13 @@ public struct DeviceListRequest: DefaultRequest {
             transformer: { result in
                 guard let data = result.data, let thisDeviceUUIDString = result.thisDevice else { return nil }
                 let devices = data.map({
-                    DeviceInformationType(
+                    DeviceInformation(
                         deviceUUID: $0.deviceUuid,
                         loginDate: $0.loginDate.toDate() ?? Date(),
                         deviceInfo: $0.deviceInfo,
                         deviceType:
-                            DeviceInformationType.DeviceType(rawValue: $0.deviceType) ??
-                            DeviceInformationType.DeviceType.unknown
+                            DeviceInformation.DeviceType(rawValue: $0.deviceType) ??
+                            DeviceInformation.DeviceType.unknown
                     )
                 })
                 return ResultData(devices: devices, thisDeviceUUID: thisDeviceUUIDString)
