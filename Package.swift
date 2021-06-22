@@ -1,4 +1,4 @@
-// swift-tools-version:5.5
+// swift-tools-version:5.3
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -27,7 +27,8 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "HollowCore",
-            dependencies: ["Alamofire"]),
+            dependencies: ["Alamofire"],
+            exclude: ["Resources/HollowCore.docc"]),
         .testTarget(
             name: "HollowCoreTests",
             dependencies: ["HollowCore"]),

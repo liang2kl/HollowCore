@@ -33,6 +33,7 @@ protocol _Request: Request {
     associatedtype Result
 }
 
+#if swift(>=5.5)
 @available(macOS 12, iOS 15, watchOS 8, tvOS 15, *)
 extension Request {
     /// Async version of `performRequest(completion:)`.
@@ -51,3 +52,4 @@ extension Request {
         })
     }
 }
+#endif

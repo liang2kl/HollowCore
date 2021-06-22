@@ -12,7 +12,7 @@ An example of using this package can be found in [treehollow-v3-ios](https://git
 
 | Platform | Minimum Swift Version | Installation | Status |
 | --- | --- | --- | --- |
-| iOS 13.0+ / macOS 10.15+ / tvOS 13.0+ / watchOS 6.0+ | 5.5 | Swift Package Manager | Partially Tested |
+| iOS 13.0+ / macOS 10.15+ / tvOS 13.0+ / watchOS 6.0+ | 5.3 | Swift Package Manager | Partially Tested |
 
 ## 安装 Installation
 
