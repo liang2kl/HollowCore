@@ -37,6 +37,7 @@ struct NetworkTest<R: Request> {
         })
     }
     
+#if swift(>=5.5)
     @available(macOS 12, iOS 15, watchOS 8, tvOS 15, *)
     private func testAsyncAPI(with expectation: XCTestExpectation) async {
         do {
@@ -50,6 +51,7 @@ struct NetworkTest<R: Request> {
             XCTAssert(false, "Async call failed with failure \(error)")
         }
     }
+#endif
     
     func execute(with expectations: [XCTestExpectation]) {
         print("\n--- Testing API for \(R.self) ---")
