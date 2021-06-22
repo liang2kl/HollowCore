@@ -8,9 +8,7 @@
 import Foundation
 import Alamofire
 
-public typealias PostListRequestResultData = [PostWrapper]
-
-/// PostListRequest
+/// Fetch posts in `Timeline`.
 public struct PostListRequest: DefaultRequest {
     public struct Configuration {
         public init(apiRoot: String, token: String, page: Int) {
@@ -19,8 +17,13 @@ public struct PostListRequest: DefaultRequest {
             self.page = page
         }
         
+        /// The root components of the URL.
         public var apiRoot: String
+        /// The access token.
         public var token: String
+        /// The `page` of the request.
+        ///
+        /// Starts from `1`. Increase to fetch former posts.
         public var page: Int
     }
     struct Result: DefaultRequestResult {

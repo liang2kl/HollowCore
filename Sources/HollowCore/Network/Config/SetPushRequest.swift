@@ -9,6 +9,7 @@
 import Foundation
 import Alamofire
 
+/// Set the user's push notification preferences.
 public struct SetPushRequest: DefaultRequest {
     public struct Configuration {
         public init(apiRoot: String, token: String, type: PushNotificationType) {
@@ -17,8 +18,11 @@ public struct SetPushRequest: DefaultRequest {
             self.type = type
         }
         
+        /// The root components of the URL.
         public var apiRoot: String
+        /// The access token.
         public var token: String
+        /// The type to set.
         public var type: PushNotificationType
     }
     struct Result: DefaultRequestResult {

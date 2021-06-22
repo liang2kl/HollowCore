@@ -8,6 +8,7 @@
 import Foundation
 import Alamofire
 
+/// Report, fold, tag, delete, or undelete a comment; ban or unban a user.
 public struct ReportCommentRequest: DefaultRequest {
     public struct Configuration {
         public init(apiRoot: String, token: String, commentId: Int, type: PostPermissionType, reason: String) {
@@ -18,10 +19,17 @@ public struct ReportCommentRequest: DefaultRequest {
             self.reason = reason
         }
         
+        /// The root components of the URL.
         public var apiRoot: String
+        /// The access token.
         public var token: String
+        /// The id of the comment to report.
         public var commentId: Int
+        /// The type of the report.
         public var type: PostPermissionType
+        /// The reason for the report.
+        ///
+        /// For ``PostPermissionType/fold`` and ``PostPermissionType/setTag``, the reason is the tag to be set. For other case of ``type``, the reason is the report message.
         public var reason: String
     }
     typealias Result = ReportPostRequest.Result

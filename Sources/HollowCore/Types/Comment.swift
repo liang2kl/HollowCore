@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// Comment used for result
+/// Data type representing a comment.
 public struct Comment: Codable {
     public init(cid: Int, deleted: Bool, name: String, permissions: [PostPermissionType], pid: Int, tag: String? = nil, text: String? = nil, timestamp: Int, replyTo: Int, isDz: Bool, url: String? = nil, imageMetadata: ImageMetadata? = nil) {
         self.cid = cid
@@ -24,21 +24,30 @@ public struct Comment: Codable {
         self.imageMetadata = imageMetadata
     }
     
-    /// comment ID
+    /// Comment id.
     public var cid: Int
+    /// Whether the comment has been deleted.
     public var deleted: Bool
+    /// The nickname to display.
     public var name: String
+    /// The permissions that current user have on this comment.
     public var permissions: [PostPermissionType]
-    /// postID
+    /// The id of the post.
     public var pid: Int
+    /// The tag of the comment.
     public var tag: String?
+    /// The content of the comment.
     public var text: String?
-    /// unix timestamp
+    /// The time of the comment (unix timestamp).
     public var timestamp: Int
-    /// comment ID
+    /// The id of the comment that this comment is replying to.
+    ///
+    /// This value is `-1` if replying to the post.
     public var replyTo: Int
+    /// Whether the author of the comment is the author of the post.
     public var isDz: Bool
-    /// image url
+    /// Image url.
     public var url: String?
+    /// Height and width information of the image.
     public var imageMetadata: ImageMetadata?
 }

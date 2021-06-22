@@ -8,21 +8,28 @@
 
 import Foundation
 
-/// Get Config Request
+/// Fetch tree hollow configuration from a remote URL.
 public struct GetConfigRequest: _Request {
     public struct Configuration {
         public init(configUrl: String) {
             self.configUrl = configUrl
         }
+        /// The URL for the configuration file.
         public var configUrl: String
     }
     typealias Result = HollowConfig
     public enum Error: Swift.Error, LocalizedError {
+        /// The server returns an error.
         case serverError
+        /// Fail to decode configuration from the response JSON.
         case decodeFailed
+        /// The opening and ending format is incorrect.
         case incorrectFormat
+        /// The URL is invalid for a HTTP request.
         case invalidConfigUrl
+        /// The configuration is in correct format, but lacks some information.
         case invalidConfiguration
+        /// An unknown error.
         case other(description: String)
         
         public var errorDescription: String? {

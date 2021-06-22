@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Check for registration state.
 public struct UnregisterCheckEmailRequest: DefaultRequest {
     public struct Configuration {
         public init(apiRoot: String, email: String, recaptchaToken: String? = nil) {
@@ -16,8 +17,11 @@ public struct UnregisterCheckEmailRequest: DefaultRequest {
             self.recaptchaToken = recaptchaToken
         }
         
-        var apiRoot: String
+        /// The root components of the URL.
+        public var apiRoot: String
+        /// User's email.
         var email: String
+        /// `reCAPTCHA` validation token. Required when the previous request result is ``UnregisterCheckEmailRequest/ResultData/needReCAPTCHA``.
         var recaptchaToken: String?
         let recaptchaVersion = "v2"
     }

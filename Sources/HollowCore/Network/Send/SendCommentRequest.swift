@@ -8,6 +8,7 @@
 import Foundation
 import Alamofire
 
+/// Post a new comment.
 public struct SendCommentRequest: DefaultRequest {
     public struct Configuration {
         public init(apiRoot: String, token: String, text: String, imageData: String? = nil, postId: Int, replyCommentId: Int? = nil) {
@@ -19,10 +20,22 @@ public struct SendCommentRequest: DefaultRequest {
             self.replyCommentId = replyCommentId
         }
         
+        public init(apiRoot: String, token: String, text: String, imageData: Data? = nil, postId: Int, replyCommentId: Int? = nil) {
+            self.apiRoot = apiRoot
+            self.token = token
+            self.text = text
+            self.imageData = imageData?.base64EncodedString()
+            self.postId = postId
+            self.replyCommentId = replyCommentId
+        }
+
+        /// The root components of the URL.
         public var apiRoot: String
+        /// The access token.
         public var token: String
-        
+        /// The content of the comment.
         public var text: String
+        /// The image data, encoded in `base64`.
         public var imageData: String?
         /// Id of the post to be commented
         public var postId: Int

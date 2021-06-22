@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// The wrapper for a post and its comments.
 public struct PostWrapper: Codable {
     public init(post: Post, comments: [Comment]) {
         self.post = post

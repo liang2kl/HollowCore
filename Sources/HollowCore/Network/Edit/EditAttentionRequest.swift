@@ -8,6 +8,7 @@
 import Foundation
 import Alamofire
 
+/// Toggle the attention state of specific post.
 public struct EditAttentionRequest: DefaultRequest {
     public struct Configuration {
         public init(apiRoot: String, token: String, postId: Int, switchToAttention: Bool) {
@@ -17,11 +18,13 @@ public struct EditAttentionRequest: DefaultRequest {
             self.switchToAttention = switchToAttention
         }
         
+        /// The root components of the URL.
         public var apiRoot: String
+        /// The access token.
         public var token: String
-        /// Post id.
+        /// The post id.
         public var postId: Int
-        /// `false` for cancel attention, `true` otherwise
+        /// `false` to cancel attention, `true` otherwise.
         public var switchToAttention: Bool
     }
     struct Result: DefaultRequestResult {

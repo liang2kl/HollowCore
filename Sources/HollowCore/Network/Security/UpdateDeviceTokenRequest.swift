@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-
+/// Update the device token for `APNs`.
 public struct UpdateDeviceTokenRequest: DefaultRequest {
     public struct Configuration {
         public init(apiRoot: String, token: String, deviceToken: Data) {
@@ -18,8 +18,11 @@ public struct UpdateDeviceTokenRequest: DefaultRequest {
             self.deviceToken = deviceToken
         }
         
+        /// The root components of the URL.
         public var apiRoot: String
+        /// The access token.
         public var token: String
+        /// Device token for APNs.
         public var deviceToken: Data
     }
     

@@ -8,9 +8,10 @@
 import Alamofire
 import Foundation
 
+/// Create a new account.
 public struct AccountCreationRequest: DefaultRequest {
     public struct Configuration {
-        public init(apiRoot: String, email: String, password: String, deviceInfo: String, validCode: String? = nil, deviceToken: String? = nil) {
+        public init(apiRoot: String, email: String, password: String, deviceInfo: String, validCode: String? = nil, deviceToken: Data? = nil) {
             self.apiRoot = apiRoot
             self.email = email
             self.password = password
@@ -19,10 +20,11 @@ public struct AccountCreationRequest: DefaultRequest {
             self.deviceToken = deviceToken
         }
         
+        /// The root components of the URL.
         public var apiRoot: String
         /// User's email.
         public var email: String
-        /// store passwd
+        /// The original password string.
         public var password: String
         /// Device type, 2 for iOS.
         let deviceType = 2
@@ -30,8 +32,8 @@ public struct AccountCreationRequest: DefaultRequest {
         public var deviceInfo: String
         /// Email valid code, optional, but one of `oldToken` and `validCode` must be present.
         public var validCode: String?
-        // TODO: Device token for APNs
-        public var deviceToken: String?
+        /// Device token for APNs.
+        public var deviceToken: Data?
     }
     
     struct Result: DefaultRequestResult {
@@ -69,7 +71,7 @@ public struct AccountCreationRequest: DefaultRequest {
         ]
         
         if let token = configuration.deviceToken {
-            parameters["ios_device_token"] = token
+            parameters["ios_device_token"] = token.hexEncodedString()
         }
         
         if let validCode = self.configuration.validCode {

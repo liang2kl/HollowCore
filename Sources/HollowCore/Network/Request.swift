@@ -10,29 +10,34 @@ import Combine
 
 public typealias ResultType = Result
 
+/// Protocol for HTTP request types.
 public protocol Request {
-    /// Configuration type.
+    /// Configuration type for the request.
     associatedtype Configuration
-    /// Final result produced.
+    /// The result produced.
     associatedtype ResultData
-    /// Configuration for the request, set via initializer.
+    /// Error type.
     associatedtype Error: Swift.Error
     /// - parameter configuration: Configuration for the request.
     init(configuration: Configuration)
     /// Perform request and fetch the data.
+    /// - Parameter completion: The completion handler.
     func performRequest(completion: @escaping (ResultType<ResultData, Error>) -> Void)
 }
 
-/// Protocol for HTTP request types.
+// Internal used protocol
 protocol _Request: Request {
+    // Configuration.
     var configuration: Configuration { get }
-    /// Result type for the request, get directly from the server.
+    // Result type for the request, get directly from the server.
     associatedtype Result
 }
 
 @available(macOS 12, iOS 15, watchOS 8, tvOS 15, *)
 extension Request {
     /// Async version of `performRequest(completion:)`.
+    /// - Returns: The fetched data.
+    /// - Throws: An ``Error`` instance.
     public func result() async throws -> ResultData {
         return try await withCheckedThrowingContinuation({ continuation in
             performRequest(completion: { result in

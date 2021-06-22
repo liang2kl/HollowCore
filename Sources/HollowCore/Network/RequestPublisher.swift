@@ -8,6 +8,7 @@
 
 import Combine
 
+/// Publisher type for a ``Request``.
 public struct RequestPublisher<R>: Publisher where R: Request {
     
     public typealias Output = R.ResultData

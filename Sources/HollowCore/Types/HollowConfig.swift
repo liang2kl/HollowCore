@@ -8,8 +8,9 @@
 
 import Foundation
 
+/// The configuration for a tree hollow program.
 public struct HollowConfig: Codable {
-    public init(name: String, recaptchaUrl: String, apiRootUrls: [String], tosUrl: String, rulesUrl: String, privacyUrl: String, contactEmail: String, emailSuffixes: [String], announcement: String, foldTags: [String], reportableTags: [String], sendableTags: [String], imgBaseUrls: [String], websocketUrl: String, searchTrending: String, searchPrompts: [HollowConfig.SearchPrompt]) {
+    public init(name: String, recaptchaUrl: String, apiRootUrls: [String], tosUrl: String, rulesUrl: String, privacyUrl: String, contactEmail: String, emailSuffixes: [String], announcement: String, foldTags: [String], reportableTags: [String], sendableTags: [String], imgBaseUrls: [String], searchTrending: String, searchPrompts: [HollowConfig.SearchPrompt]) {
         self.name = name
         self.recaptchaUrl = recaptchaUrl
         self.apiRootUrls = apiRootUrls
@@ -23,7 +24,6 @@ public struct HollowConfig: Codable {
         self.reportableTags = reportableTags
         self.sendableTags = sendableTags
         self.imgBaseUrls = imgBaseUrls
-        self.websocketUrl = websocketUrl
         self.searchTrending = searchTrending
         self.searchPrompts = searchPrompts
     }
@@ -36,27 +36,47 @@ public struct HollowConfig: Codable {
         }
         
         public struct ButtonInfo: Codable {
+            /// The displayed text for the button.
             public var text: String
+            /// The url to jump to.
             public var url: String
         }
+        /// The keywords to be interferenced.
         public var keywords: [String]
+        /// The description of the interference.
         public var description: String
+        /// The information to display buttons.
         public var buttons: [ButtonInfo]
     }
+    
+    /// The name of the tree hollow host.
     public var name: String
+    /// The url for the reCAPTCHA page.
     public var recaptchaUrl: String
+    /// The root URL of the server API.
     public var apiRootUrls: [String]
+    /// The URL for Terms and Service page.
     public var tosUrl: String
+    /// The URL for community rules.
     public var rulesUrl: String
+    /// The URL for privacy page.
     public var privacyUrl: String
+    /// The contact email.
     public var contactEmail: String
+    /// The permitted email suffixes for registration.
     public var emailSuffixes: [String]
+    /// The announcement.
     public var announcement: String
+    /// The tags to be folded by default.
     public var foldTags: [String]
+    /// Reportable tags.
     public var reportableTags: [String]
+    /// Sendable tags.
     public var sendableTags: [String]
+    /// URL base for image requests.
     public var imgBaseUrls: [String]
-    public var websocketUrl: String
+    /// The keyword used to show trending posts.
     public var searchTrending: String
+    /// Inteference information for specific serach.
     public var searchPrompts: [SearchPrompt]
 }

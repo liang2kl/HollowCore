@@ -8,6 +8,7 @@
 import Alamofire
 import Foundation
 
+/// Check registration status of given email.
 public struct EmailCheckRequest: DefaultRequest {
     public struct Configuration {
         public init(apiRoot: String, email: String, reCAPTCHAInfo: (token: String, version: ReCAPTCHAVersion)? = nil) {
@@ -16,17 +17,17 @@ public struct EmailCheckRequest: DefaultRequest {
             self.reCAPTCHAInfo = reCAPTCHAInfo
         }
         
+        /// The root components of the URL.
         public var apiRoot: String
-        /// `reCAPTCHA` version
-        //    NO USE!
+
         public enum ReCAPTCHAVersion: String {
             case v2 = "v2"
             case v3 = "v3"
         }
-        /// User's email to be checked, required
+        /// User's email to be checked.
         public var email: String
 
-        /// Info of `reCAPTCHA`, optional
+        /// `reCAPTCHA` validation token. Required when the previous request result is ``EmailCheckRequest/ResultData/newUser``.
         public var reCAPTCHAInfo: (token: String, version: ReCAPTCHAVersion)?
     }
     

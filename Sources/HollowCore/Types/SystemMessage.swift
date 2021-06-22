@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// Data representation of a system message
+/// Data representation of a system message.
 public struct SystemMessage: Codable {
     public init(content: String, timestamp: Int, title: String) {
         self.content = content
@@ -15,10 +15,10 @@ public struct SystemMessage: Codable {
         self.title = title
     }
     
-    /// message content
+    /// Message content.
     public var content: String
-    /// unix time stamp of this message
+    /// The time when the message was sent (unix timestamp).
     public var timestamp: Int
-    /// message title
+    /// Message title.
     public var title: String
 }

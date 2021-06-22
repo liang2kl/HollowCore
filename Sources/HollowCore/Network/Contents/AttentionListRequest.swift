@@ -8,6 +8,7 @@
 import Foundation
 import Alamofire
 
+/// Fetch the posts in the user's attention list.
 public struct AttentionListRequest: DefaultRequest {
     public typealias Configuration = PostListRequest.Configuration
     typealias Result = PostListRequest.Result

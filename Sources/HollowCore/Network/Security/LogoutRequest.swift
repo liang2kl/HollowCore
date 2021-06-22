@@ -9,6 +9,7 @@
 import Foundation
 import Alamofire
 
+/// Logout.
 public struct LogoutRequest: DefaultRequest {
     public struct Configuration {
         public init(apiRoot: String, token: String) {
@@ -16,7 +17,9 @@ public struct LogoutRequest: DefaultRequest {
             self.token = token
         }
         
+        /// The root components of the URL.
         public var apiRoot: String
+        /// The access token.
         public var token: String
     }
 

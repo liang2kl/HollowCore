@@ -8,6 +8,7 @@
 import Foundation
 import Alamofire
 
+/// Report, fold, tag, delete, or undelete a post; ban or unban a user.
 public struct ReportPostRequest: DefaultRequest {
     public struct Configuration {
         public init(apiRoot: String, token: String, postId: Int, type: PostPermissionType, reason: String) {
@@ -18,10 +19,15 @@ public struct ReportPostRequest: DefaultRequest {
             self.reason = reason
         }
         
+        /// The root components of the URL.
         public var apiRoot: String
+        /// The access token.
         public var token: String
+        /// The id of the post to report.
         public var postId: Int
+        /// The type of the report.
         public var type: PostPermissionType
+        /// The reason for the report.
         public var reason: String
     }
     struct Result: DefaultRequestResult {

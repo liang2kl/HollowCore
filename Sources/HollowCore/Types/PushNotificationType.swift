@@ -8,15 +8,18 @@
 
 import Foundation
 
+/// The preference of notifications.
 public struct PushNotificationType: Codable, Equatable {
     public init(pushSystemMsg: Bool, pushReplyMe: Bool, pushFavorited: Bool) {
         self.pushSystemMsg = pushSystemMsg
         self.pushReplyMe = pushReplyMe
         self.pushFavorited = pushFavorited
     }
-    
+    /// Whether to send notification on receiving system messages.
     public var pushSystemMsg: Bool
+    /// Whether to send notification on receiving replies.
     public var pushReplyMe: Bool
+    /// Whether to send notification on receiving updates of posts on attention list.
     public var pushFavorited: Bool
 }
 

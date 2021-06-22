@@ -8,6 +8,7 @@
 import Foundation
 import Alamofire
 
+/// Fetch posts in `Wander`.
 public struct RandomListRequest: DefaultRequest {
     public typealias Configuration = PostListRequest.Configuration
     typealias Result = PostListRequest.Result

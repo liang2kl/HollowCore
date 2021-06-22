@@ -8,29 +8,27 @@
 import Foundation
 import Alamofire
 
+/// Fetch a single post.
 public struct PostDetailRequest: DefaultRequest {
     public struct Configuration {
+        /// The root components of the URL.
         public var apiRoot: String
+        /// The access token.
         public var token: String
+        /// The post id of the request post.
         public var postId: Int
-        /// when don't need comments, only need main post, set `needComments` to false
+        /// Whether to request comments.
         public var includeComments: Bool
-        public var lastUpdateTimestamp: Int?
+        /// The wrapper for the cached post, if there's one.
+        ///
+        /// The updated time will be examine and some result will not be fetched if there's no update since the last fetch.
         public var cachedPost: PostWrapper?
         
-        public init(apiRoot: String, token: String, postId: Int, includeComments: Bool) {
+        public init(apiRoot: String, token: String, postId: Int, includeComments: Bool, cachedPost: PostWrapper? = nil) {
             self.apiRoot = apiRoot
             self.token = token
             self.postId = postId
             self.includeComments = includeComments
-        }
-        
-        public init(apiRoot: String, token: String, postId: Int, includeComments: Bool, lastUpdateTimestamp: Int, cachedPost: PostWrapper) {
-            self.apiRoot = apiRoot
-            self.token = token
-            self.postId = postId
-            self.includeComments = includeComments
-            self.lastUpdateTimestamp = lastUpdateTimestamp
             self.cachedPost = cachedPost
         }
     }
@@ -41,7 +39,9 @@ public struct PostDetailRequest: DefaultRequest {
         var data: [Comment]?
     }
     public enum ResultData {
+        /// There's no update since the time when the cached post was fetched.
         case cached(PostWrapper)
+        /// The result is newly fetched, or here is update since the time when the cached post was fetched.
         case new(PostWrapper)
     }
     public typealias Error = DefaultRequestError
@@ -64,8 +64,9 @@ public struct PostDetailRequest: DefaultRequest {
             "include_comment" : configuration.includeComments.int.string
         ]
         
-        if let oldUpdated = configuration.lastUpdateTimestamp,
-           let cachedPost = configuration.cachedPost {
+        if let cachedPost = configuration.cachedPost {
+            let oldUpdated = cachedPost.post.updatedAt
+            
             // If at least one of the comments has `delete` permission
             // but no `delete_ban` permission, then we should not rely
             // on cache because that permission has a fixed timeout and

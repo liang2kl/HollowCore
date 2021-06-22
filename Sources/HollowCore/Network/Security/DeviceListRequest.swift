@@ -8,6 +8,7 @@
 import Foundation
 import Alamofire
 
+/// Fetch the information of all online devices.
 public struct DeviceListRequest: DefaultRequest {
     public struct Configuration {
         public init(apiRoot: String, token: String) {
@@ -15,7 +16,9 @@ public struct DeviceListRequest: DefaultRequest {
             self.token = token
         }
         
+        /// The root components of the URL.
         public var apiRoot: String
+        /// The access token.
         public var token: String
     }
     

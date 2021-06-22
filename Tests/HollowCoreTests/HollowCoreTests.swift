@@ -50,7 +50,7 @@ final class HollowCoreTests: XCTestCase {
     func testPostDetailWithCache() async {
         guard let result = try? await PostDetailRequest(configuration: .init(apiRoot: testAPIRoot, token: testToken, postId: 1, includeComments: true)).result() else { return }
         guard case .new(let post) = result else { return }
-        let test = NetworkTest<PostDetailRequest>(configuration: .init(apiRoot: testAPIRoot, token: testToken, postId: 1, includeComments: true, lastUpdateTimestamp: post.post.updatedAt, cachedPost: post), validate: {
+        let test = NetworkTest<PostDetailRequest>(configuration: .init(apiRoot: testAPIRoot, token: testToken, postId: 1, includeComments: true, cachedPost: post), validate: {
             if case .cached = $0 { return true }
             if case .new(let newPost) = $0 {
                 return newPost.post.updatedAt > post.post.updatedAt

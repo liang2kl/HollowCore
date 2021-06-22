@@ -8,6 +8,7 @@
 import Foundation
 import Alamofire
 
+/// Search in all posts.
 public struct SearchRequest: DefaultRequest {
     public struct Configuration {
         public init(apiRoot: String, token: String, keywords: String, page: Int, afterTimestamp: Int? = nil, beforeTimestamp: Int? = nil, includeComment: Bool) {
@@ -20,12 +21,21 @@ public struct SearchRequest: DefaultRequest {
             self.includeComment = includeComment
         }
         
+        /// The root components of the URL.
         public var apiRoot: String
+        /// The access token.
         public var token: String
+        /// The keywords to search.
         public var keywords: String
+        /// The `page` of the request.
+        ///
+        /// Starts from `1`. Increase to fetch former posts.
         public var page: Int
+        /// The lower bound of the time interval.
         public var afterTimestamp: Int?
+        /// The upper bound of the time interval.
         public var beforeTimestamp: Int?
+        /// Whether to also search comments.
         public var includeComment: Bool
     }
     typealias Result = PostListRequest.Result

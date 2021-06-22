@@ -8,6 +8,7 @@
 import Alamofire
 import Foundation
 
+/// Change password.
 public struct ChangePasswordRequest: DefaultRequest {
     public struct Configuration {
         public init(apiRoot: String, email: String, oldPassword: String, newPassword: String) {
@@ -17,6 +18,7 @@ public struct ChangePasswordRequest: DefaultRequest {
             self.newPassword = newPassword
         }
         
+        /// The root components of the URL.
         public var apiRoot: String
         /// User's email
         public var email: String

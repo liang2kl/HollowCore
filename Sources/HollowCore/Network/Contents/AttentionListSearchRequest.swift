@@ -8,6 +8,7 @@
 import Foundation
 import Alamofire
 
+/// Search in the user's attention list.
 public struct AttentionListSearchRequest: DefaultRequest {
     public struct Configuration {
         public init(apiRoot: String, token: String, keywords: String, page: Int) {
@@ -17,9 +18,15 @@ public struct AttentionListSearchRequest: DefaultRequest {
             self.page = page
         }
         
+        /// The root components of the URL.
         public var apiRoot: String
+        /// The access token.
         public var token: String
+        /// The keywords to search.
         public var keywords: String
+        /// The `page` of the request.
+        ///
+        /// Starts from `1`. Increase to fetch former posts.
         public var page: Int
     }
     typealias Result = PostListRequest.Result

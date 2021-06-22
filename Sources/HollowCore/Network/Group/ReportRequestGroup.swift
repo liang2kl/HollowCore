@@ -8,6 +8,7 @@
 
 import Combine
 
+/// A wrapper for a group of similar request for reporting.
 public struct ReportRequestGroup: DefaultRequest {
     
     public enum Configuration {

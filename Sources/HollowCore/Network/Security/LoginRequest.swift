@@ -9,9 +9,10 @@
 import Alamofire
 import Foundation
 
+/// Login.
 public struct LoginRequest: DefaultRequest {
     public struct Configuration {
-        public init(apiRoot: String, email: String, password: String, deviceInfo: String, deviceToken: String? = nil) {
+        public init(apiRoot: String, email: String, password: String, deviceInfo: String, deviceToken: Data? = nil) {
             self.apiRoot = apiRoot
             self.email = email
             self.password = password
@@ -19,12 +20,18 @@ public struct LoginRequest: DefaultRequest {
             self.deviceToken = deviceToken
         }
         
+        /// The root components of the URL.
         public var apiRoot: String
+        /// User's email.
         public var email: String
+        /// The original password string.
         public var password: String
+        /// Device type, 2 for iOS.
         let deviceType = 2
+        /// Device information.
         public var deviceInfo: String
-        public var deviceToken: String?
+        /// Device token for APNs.
+        public var deviceToken: Data?
     }
 
     struct Result: DefaultRequestResult {
@@ -56,7 +63,7 @@ public struct LoginRequest: DefaultRequest {
                 "device_info": self.configuration.deviceInfo,
             ]
         if let token = configuration.deviceToken {
-            parameters["ios_device_token"] = token
+            parameters["ios_device_token"] = token.hexEncodedString()
         }
         let urlPath = "v3/security/login/login" + Constants.urlSuffix
         performRequest(

@@ -8,6 +8,7 @@
 import Foundation
 import Alamofire
 
+/// Vote in specific post.
 public struct SendVoteRequest: DefaultRequest {
     public struct Configuration {
         public init(apiRoot: String, token: String, option: String, postId: Int) {
@@ -17,9 +18,13 @@ public struct SendVoteRequest: DefaultRequest {
             self.postId = postId
         }
         
+        /// The root components of the URL.
         public var apiRoot: String
+        /// The access token.
         public var token: String
+        /// The selected vote option.
         public var option: String
+        /// Id of the post to be voted.
         public var postId: Int
     }
 

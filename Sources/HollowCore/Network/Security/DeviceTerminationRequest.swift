@@ -8,6 +8,7 @@
 import Foundation
 import Alamofire
 
+/// Terminate session of specific device.
 public struct DeviceTerminationRequest: DefaultRequest {
     public struct Configuration {
         public init(apiRoot: String, token: String, deviceUUID: String) {
@@ -16,8 +17,11 @@ public struct DeviceTerminationRequest: DefaultRequest {
             self.deviceUUID = deviceUUID
         }
         
+        /// The root components of the URL.
         public var apiRoot: String
+        /// The access token.
         public var token: String
+        /// The UUID of the device fetched from ``DeviceListRequest``.
         public var deviceUUID: String
     }
     

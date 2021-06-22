@@ -8,11 +8,16 @@
 
 import Foundation
 
+/// Common errors occured during requests.
 public enum DefaultRequestError: Error, LocalizedError {
+    /// Failed to decode result from the response.
     case decodeFailed
+    /// The access token provided has expired.
     case tokenExpiredError
+    /// The uploaded file is too large and is refused by the server.
     case fileTooLarge
     case unknown
+    /// The request post does not exist.
     case noSuchPost
     case other(description: String)
     
