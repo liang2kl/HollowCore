@@ -1,0 +1,23 @@
+/* DefaultRequestError */
+
+"DEF_ERR_DECODE_FAILED" = "解码失败";
+
+"DEF_ERR_TOKEN_EXPIRED" = "用户认证过期";
+
+"DEF_ERR_FILE_TOO_LARGE" = "上传文件大小超过限制，被服务器拒绝";
+
+"DEF_ERR_UNKNOWN" = "发生了未知错误";
+
+"DEF_ERR_NO_SUCH_POST" = "树洞不存在";
+
+/* GetConfigRequest.Error */
+
+"GET_CONFIG_ERR_SERVER_ERROR" = "服务器返回错误";
+
+"GET_CONFIG_ERR_DECODE_FAILED" = "从当前网址无法解码树洞配置";
+
+"GET_CONFIG_ERR_INCORRECT_FORMAT" = "树洞配置格式不正确";
+
+"GET_CONFIG_ERR_INVALID_CONFIG_URL" = "树洞配置网址无效";
+
+"GET_CONFIG_ERR_INVALID_CONFIGURATION" = "树洞配置无效";

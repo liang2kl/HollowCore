@@ -23,8 +23,18 @@ public struct GetConfigRequest: _Request {
         case incorrectFormat
         case invalidConfigUrl
         case invalidConfiguration
-        case loadingCompleted
         case other(description: String)
+        
+        var localizedDescription: String {
+            switch self {
+            case .serverError: return NSLocalizedString("GET_CONFIG_ERR_SERVER_ERROR", bundle: .module, comment: "")
+            case .decodeFailed: return NSLocalizedString("GET_CONFIG_ERR_DECODE_FAILED", bundle: .module, comment: "")
+            case .incorrectFormat: return NSLocalizedString("GET_CONFIG_ERR_INCORRECT_FORMAT", bundle: .module, comment: "")
+            case .invalidConfigUrl: return NSLocalizedString("GET_CONFIG_ERR_INVALID_CONFIG_URL", bundle: .module, comment: "")
+            case .invalidConfiguration: return NSLocalizedString("GET_CONFIG_ERR_INVALID_CONFIGURATION", bundle: .module, comment: "")
+            case .other(let description): return description
+            }
+        }
     }
     public typealias ResultData = HollowConfig
     

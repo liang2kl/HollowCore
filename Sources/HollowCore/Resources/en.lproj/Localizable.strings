@@ -1,0 +1,23 @@
+/* DefaultRequestError */
+
+"DEF_ERR_DECODE_FAILED" = "Fail to decode result from the response";
+
+"DEF_ERR_TOKEN_EXPIRED" = "The access token has expired";
+
+"DEF_ERR_FILE_TOO_LARGE" = "The uploaded file is too large and is refused by the server";
+
+"DEF_ERR_UNKNOWN" = "An unknown error occured";
+
+"DEF_ERR_NO_SUCH_POST" = "The requested post does not exist";
+
+/* GetConfigRequest.Error */
+
+"GET_CONFIG_ERR_SERVER_ERROR" = "Received error from the server";
+
+"GET_CONFIG_ERR_DECODE_FAILED" = "Fail to decode treehollow configuration from the response";
+
+"GET_CONFIG_ERR_INCORRECT_FORMAT" = "The format of the configuration is incorrect";
+
+"GET_CONFIG_ERR_INVALID_CONFIG_URL" = "The URL for the configuration is invalid";
+
+"GET_CONFIG_ERR_INVALID_CONFIGURATION" = "The treehollow configuration is invalid";
