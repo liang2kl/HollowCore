@@ -4,6 +4,10 @@ Swift 语言的树洞网络请求库。
 
 A library for networking in Tree Hollow, written in Swift.
 
+使用此库的一个例子：[treehollow-v3-ios](https://github.com/treehollow/treehollow-v3-ios)
+
+An example of using this package can be found in [treehollow-v3-ios](https://github.com/treehollow/treehollow-v3-ios).
+
 ## 要求 Requirements
 
 | Platform | Minimum Swift Version | Installation | Status |
