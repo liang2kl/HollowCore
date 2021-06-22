@@ -46,6 +46,7 @@ final class HollowCoreTests: XCTestCase {
         execute(test1)
     }
     
+#if swift(>=5.5)
     @available(macOS 12, iOS 15, watchOS 8, tvOS 15, *)
     func testPostDetailWithCache() async {
         guard let result = try? await PostDetailRequest(configuration: .init(apiRoot: testAPIRoot, token: testToken, postId: 1, includeComments: true)).result() else { return }
@@ -59,7 +60,7 @@ final class HollowCoreTests: XCTestCase {
         })
         execute(test)
     }
-
+#endif
     func testPostList() {
         let test = NetworkTest<PostListRequest>(configuration: .init(apiRoot: testAPIRoot, token: testToken, page: 1))
         execute(test)
