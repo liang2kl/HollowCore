@@ -62,6 +62,9 @@ struct NetworkTest<R: Request> {
                 await testAsyncAPI(with: expectations[1])
                 testAPI(with: expectations[0])
             }
+#else
+            expectations[0].fulfill()
+            expectations[1].fulfill()
 #endif
         } else {
             testAPI(with: expectations[0])

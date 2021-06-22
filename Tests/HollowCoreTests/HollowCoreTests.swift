@@ -14,7 +14,7 @@ final class HollowCoreTests: XCTestCase {
     }
     
     func testGetPush() {
-        let test = NetworkTest<GetPushRequest>(configuration: .init(apiRoot: testAPIRoot, token: testToken))
+        let test = NetworkTest<GetPushRequest>(configuration: .init(apiRoot: testAPIRoot, token: testToken), completion: { print($0) })
         execute(test)
     }
     

@@ -15,6 +15,13 @@ public struct PushNotificationType: Codable, Equatable {
         self.pushReplyMe = pushReplyMe
         self.pushFavorited = pushFavorited
     }
+    
+    init(pushSystemMsg: Int, pushReplyMe: Int, pushFavorited: Int) {
+        self.pushSystemMsg = pushSystemMsg != 0
+        self.pushReplyMe = pushReplyMe != 0
+        self.pushFavorited = pushFavorited != 0
+    }
+    
     /// Whether to send notification on receiving system messages.
     public var pushSystemMsg: Bool
     /// Whether to send notification on receiving replies.

@@ -23,9 +23,14 @@ public struct GetPushRequest: DefaultRequest {
         public var token: String
     }
     struct Result: DefaultRequestResult {
-        public var code: Int
-        public var msg: String?
-        public var data: PushNotificationType?
+        struct Data: Codable {
+            var pushSystemMsg: Int
+            var pushReplyMe: Int
+            var pushFavorited: Int
+        }
+        var code: Int
+        var msg: String?
+        var data: Data?
     }
     public typealias ResultData = PushNotificationType
     public typealias Error = DefaultRequestError
@@ -47,7 +52,10 @@ public struct GetPushRequest: DefaultRequest {
             urlPath: urlPath,
             headers: headers,
             method: .get,
-            transformer: { $0.data },
+            transformer: {
+                guard let data = $0.data else { return nil }
+                return .init(pushSystemMsg: data.pushSystemMsg, pushReplyMe: data.pushReplyMe, pushFavorited: data.pushFavorited)
+            },
             completion: completion
         )
     }
