@@ -57,10 +57,12 @@ struct NetworkTest<R: Request> {
         print("\n--- Testing API for \(R.self) ---")
         print("CONFIGURATION:\n\(configuration)\n")
         if #available(macOS 12, iOS 15, watchOS 8, tvOS 15, *) {
+#if swift(>=5.5)
             async {
                 await testAsyncAPI(with: expectations[1])
                 testAPI(with: expectations[0])
             }
+#endif
         } else {
             testAPI(with: expectations[0])
             expectations[1].fulfill()
