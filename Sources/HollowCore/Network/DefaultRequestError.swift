@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum DefaultRequestError: Error {
+public enum DefaultRequestError: Error, LocalizedError {
     case decodeFailed
     case tokenExpiredError
     case fileTooLarge
@@ -24,7 +24,7 @@ public enum DefaultRequestError: Error {
         }
     }
     
-    var localizedDescription: String {
+    public var errorDescription: String? {
         switch self {
         case .decodeFailed: return NSLocalizedString("DEF_ERR_DECODE_FAILED", bundle: .module, comment: "")
         case .tokenExpiredError: return NSLocalizedString("DEF_ERR_TOKEN_EXPIRED", bundle: .module, comment: "")

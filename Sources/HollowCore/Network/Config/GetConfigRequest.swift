@@ -17,7 +17,7 @@ public struct GetConfigRequest: _Request {
         public var configUrl: String
     }
     typealias Result = HollowConfig
-    public enum Error: Swift.Error {
+    public enum Error: Swift.Error, LocalizedError {
         case serverError
         case decodeFailed
         case incorrectFormat
@@ -25,7 +25,7 @@ public struct GetConfigRequest: _Request {
         case invalidConfiguration
         case other(description: String)
         
-        var localizedDescription: String {
+        public var errorDescription: String? {
             switch self {
             case .serverError: return NSLocalizedString("GET_CONFIG_ERR_SERVER_ERROR", bundle: .module, comment: "")
             case .decodeFailed: return NSLocalizedString("GET_CONFIG_ERR_DECODE_FAILED", bundle: .module, comment: "")
