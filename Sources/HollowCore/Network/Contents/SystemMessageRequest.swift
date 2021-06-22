@@ -8,33 +8,27 @@
 import Foundation
 import Alamofire
 
-/// The configuration parameter is the user token.
-public struct SystemMessageRequestConfiguration {
-    public init(apiRoot: String, token: String) {
-        self.apiRoot = apiRoot
-        self.token = token
-    }
-    
-    public var apiRoot: String
-    public var token: String
-}
-
-/// Wrapper for result of attempt to get system messages
-struct SystemMessageRequestResult: DefaultRequestResult {
-    var code: Int
-    var msg: String?
-    var data: [SystemMessage]?
-}
-
 /// SystemMessageRequest same as default request
 public struct SystemMessageRequest: DefaultRequest {
-    public typealias Configuration = SystemMessageRequestConfiguration
-    typealias Result = SystemMessageRequestResult
+    public struct Configuration {
+        public init(apiRoot: String, token: String) {
+            self.apiRoot = apiRoot
+            self.token = token
+        }
+        
+        public var apiRoot: String
+        public var token: String
+    }
+    struct Result: DefaultRequestResult {
+        var code: Int
+        var msg: String?
+        var data: [SystemMessage]?
+    }
     public typealias ResultData = [SystemMessage]
     public typealias Error = DefaultRequestError
-    var configuration: SystemMessageRequestConfiguration
+    var configuration: Configuration
     
-    public init(configuration: SystemMessageRequestConfiguration) {
+    public init(configuration: Configuration) {
         self.configuration = configuration
     }
     

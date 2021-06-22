@@ -8,60 +8,55 @@
 import Alamofire
 import Foundation
 
-/// Configuraions for creating an account.
-public struct AccountCreationRequestConfiguration {
-    public init(apiRoot: String, email: String, password: String, deviceInfo: String, validCode: String? = nil, deviceToken: String? = nil) {
-        self.apiRoot = apiRoot
-        self.email = email
-        self.password = password
-        self.deviceInfo = deviceInfo
-        self.validCode = validCode
-        self.deviceToken = deviceToken
+public struct AccountCreationRequest: DefaultRequest {
+    public struct Configuration {
+        public init(apiRoot: String, email: String, password: String, deviceInfo: String, validCode: String? = nil, deviceToken: String? = nil) {
+            self.apiRoot = apiRoot
+            self.email = email
+            self.password = password
+            self.deviceInfo = deviceInfo
+            self.validCode = validCode
+            self.deviceToken = deviceToken
+        }
+        
+        public var apiRoot: String
+        /// User's email.
+        public var email: String
+        /// store passwd
+        public var password: String
+        /// Device type, 2 for iOS.
+        let deviceType = 2
+        /// Device information.
+        public var deviceInfo: String
+        /// Email valid code, optional, but one of `oldToken` and `validCode` must be present.
+        public var validCode: String?
+        // TODO: Device token for APNs
+        public var deviceToken: String?
     }
     
-    public var apiRoot: String
-    /// User's email.
-    public var email: String
-    /// store passwd
-    public var password: String
-    /// Device type, 2 for iOS.
-    let deviceType = 2
-    /// Device information.
-    public var deviceInfo: String
-    /// Email valid code, optional, but one of `oldToken` and `validCode` must be present.
-    public var validCode: String?
-    // TODO: Device token for APNs
-    public var deviceToken: String?
-}
-
-/// Result of account creation attempt.
-public struct AccountCreationRequestResultData {
-    /// Access token.
-    public var token: String
-    /// Device UUID
-    public var uuid: UUID
-}
-
-struct AccountCreationRequestResult: DefaultRequestResult {
-    /// The type of result received.
-    var code: Int
-    /// Access token.
-    var token: String?
-    /// Device UUID
-    var uuid: UUID?
-    /// Error mssage.
-    var msg: String?
-}
-
-public struct AccountCreationRequest: DefaultRequest {
-    public typealias Configuration = AccountCreationRequestConfiguration
-    typealias Result = AccountCreationRequestResult
-    public typealias ResultData = AccountCreationRequestResultData
+    struct Result: DefaultRequestResult {
+        /// The type of result received.
+        var code: Int
+        /// Access token.
+        var token: String?
+        /// Device UUID
+        var uuid: UUID?
+        /// Error mssage.
+        var msg: String?
+    }
+    
+    public struct ResultData {
+        /// Access token.
+        public var token: String
+        /// Device UUID
+        public var uuid: UUID
+    }
+    
     public typealias Error = DefaultRequestError
     
-    var configuration: AccountCreationRequestConfiguration
+    var configuration: Configuration
     
-    public init(configuration: AccountCreationRequestConfiguration) {
+    public init(configuration: Configuration) {
         self.configuration = configuration
     }
     

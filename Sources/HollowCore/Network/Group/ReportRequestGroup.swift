@@ -8,26 +8,22 @@
 
 import Combine
 
-public enum ReportRequestGroupConfiguration {
-    case post(ReportPostRequestConfiguration)
-    case comment(ReportCommentRequestConfiguration)
-}
-
-public struct ReportRequestGroupResult: DefaultRequestResult {
-    var code: Int
-    var msg: String?
-}
-
 public struct ReportRequestGroup: DefaultRequest {
     
-    public typealias Configuration = ReportRequestGroupConfiguration
-    typealias Result = ReportRequestGroupResult
+    public enum Configuration {
+        case post(ReportPostRequest.Configuration)
+        case comment(ReportCommentRequest.Configuration)
+    }
+    struct Result: DefaultRequestResult {
+        var code: Int
+        var msg: String?
+    }
     public typealias ResultData = ()
     public typealias Error = DefaultRequestError
     
-    var configuration: ReportRequestGroupConfiguration
+    var configuration: Configuration
     
-    public init(configuration: ReportRequestGroupConfiguration) {
+    public init(configuration: Configuration) {
         self.configuration = configuration
     }
     

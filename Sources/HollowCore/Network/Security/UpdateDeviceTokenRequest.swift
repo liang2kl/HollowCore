@@ -9,32 +9,31 @@
 import Foundation
 import Alamofire
 
-public struct UpdateDeviceTokenRequestConfiguration {
-    public init(apiRoot: String, token: String, deviceToken: Data) {
-        self.apiRoot = apiRoot
-        self.token = token
-        self.deviceToken = deviceToken
-    }
-    
-    public var apiRoot: String
-    public var token: String
-    public var deviceToken: Data
-}
-
-struct UpdateDeviceTokenRequestResult: DefaultRequestResult {
-    var code: Int
-    var msg: String?
-}
 
 public struct UpdateDeviceTokenRequest: DefaultRequest {
-    public typealias Configuration = UpdateDeviceTokenRequestConfiguration
-    typealias Result = UpdateDeviceTokenRequestResult
+    public struct Configuration {
+        public init(apiRoot: String, token: String, deviceToken: Data) {
+            self.apiRoot = apiRoot
+            self.token = token
+            self.deviceToken = deviceToken
+        }
+        
+        public var apiRoot: String
+        public var token: String
+        public var deviceToken: Data
+    }
+    
+    struct Result: DefaultRequestResult {
+        var code: Int
+        var msg: String?
+    }
+
     public typealias ResultData = ()
     public typealias Error = DefaultRequestError
 
-    var configuration: UpdateDeviceTokenRequestConfiguration
+    var configuration: Configuration
     
-    public init(configuration: UpdateDeviceTokenRequestConfiguration) {
+    public init(configuration: Configuration) {
         self.configuration = configuration
     }
     

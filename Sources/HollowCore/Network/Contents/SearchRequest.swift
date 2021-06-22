@@ -8,35 +8,33 @@
 import Foundation
 import Alamofire
 
-public struct SearchRequestConfiguration {
-    public init(apiRoot: String, token: String, keywords: String, page: Int, afterTimestamp: Int? = nil, beforeTimestamp: Int? = nil, includeComment: Bool) {
-        self.apiRoot = apiRoot
-        self.token = token
-        self.keywords = keywords
-        self.page = page
-        self.afterTimestamp = afterTimestamp
-        self.beforeTimestamp = beforeTimestamp
-        self.includeComment = includeComment
-    }
-    
-    public var apiRoot: String
-    public var token: String
-    public var keywords: String
-    public var page: Int
-    public var afterTimestamp: Int?
-    public var beforeTimestamp: Int?
-    public var includeComment: Bool
-}
-
 public struct SearchRequest: DefaultRequest {
-    public typealias Configuration = SearchRequestConfiguration
-    typealias Result = PostListRequestResult
+    public struct Configuration {
+        public init(apiRoot: String, token: String, keywords: String, page: Int, afterTimestamp: Int? = nil, beforeTimestamp: Int? = nil, includeComment: Bool) {
+            self.apiRoot = apiRoot
+            self.token = token
+            self.keywords = keywords
+            self.page = page
+            self.afterTimestamp = afterTimestamp
+            self.beforeTimestamp = beforeTimestamp
+            self.includeComment = includeComment
+        }
+        
+        public var apiRoot: String
+        public var token: String
+        public var keywords: String
+        public var page: Int
+        public var afterTimestamp: Int?
+        public var beforeTimestamp: Int?
+        public var includeComment: Bool
+    }
+    typealias Result = PostListRequest.Result
     public typealias ResultData = [PostWrapper]
     public typealias Error = DefaultRequestError
     
-    var configuration: SearchRequestConfiguration
+    var configuration: Configuration
     
-    public init(configuration: SearchRequestConfiguration) {
+    public init(configuration: Configuration) {
         self.configuration = configuration
     }
     

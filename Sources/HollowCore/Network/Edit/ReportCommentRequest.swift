@@ -8,30 +8,28 @@
 import Foundation
 import Alamofire
 
-public struct ReportCommentRequestConfiguration {
-    public init(apiRoot: String, token: String, commentId: Int, type: PostPermissionType, reason: String) {
-        self.apiRoot = apiRoot
-        self.token = token
-        self.commentId = commentId
-        self.type = type
-        self.reason = reason
-    }
-    
-    public var apiRoot: String
-    public var token: String
-    public var commentId: Int
-    public var type: PostPermissionType
-    public var reason: String
-}
-
 public struct ReportCommentRequest: DefaultRequest {
-    public typealias Configuration = ReportCommentRequestConfiguration
-    typealias Result = ReportPostRequestResult
+    public struct Configuration {
+        public init(apiRoot: String, token: String, commentId: Int, type: PostPermissionType, reason: String) {
+            self.apiRoot = apiRoot
+            self.token = token
+            self.commentId = commentId
+            self.type = type
+            self.reason = reason
+        }
+        
+        public var apiRoot: String
+        public var token: String
+        public var commentId: Int
+        public var type: PostPermissionType
+        public var reason: String
+    }
+    typealias Result = ReportPostRequest.Result
     public typealias ResultData = ()
     public typealias Error = DefaultRequestError
-    var configuration: ReportCommentRequestConfiguration
+    var configuration: Configuration
     
-    public init(configuration: ReportCommentRequestConfiguration) {
+    public init(configuration: Configuration) {
         self.configuration = configuration
     }
     

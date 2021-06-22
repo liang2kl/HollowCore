@@ -8,56 +8,49 @@
 import Alamofire
 import Foundation
 
-/// Configurations for email check
-public struct EmailCheckRequestConfiguration {
-    public init(apiRoot: String, email: String, reCAPTCHAInfo: (token: String, version: EmailCheckRequestConfiguration.ReCAPTCHAVersion)? = nil) {
-        self.apiRoot = apiRoot
-        self.email = email
-        self.reCAPTCHAInfo = reCAPTCHAInfo
-    }
-    
-    public var apiRoot: String
-    /// `reCAPTCHA` version
-    //    NO USE!
-    public enum ReCAPTCHAVersion: String {
-        case v2 = "v2"
-        case v3 = "v3"
-    }
-    /// User's email to be checked, required
-    public var email: String
-
-    /// Info of `reCAPTCHA`, optional
-    public var reCAPTCHAInfo: (token: String, version: ReCAPTCHAVersion)?
-}
-
-/// Result Data of EmailCheck
-public enum EmailCheckType: Int, Equatable {
-    /// Old user, shuold input password to login.
-    case oldUser = 0
-    /// New user, should check email for valid code and create password to sign up.
-    case newUser = 1
-    /// New user with old thuhole token, should create password to sign up.
-    case newUserWithToken = 2
-    /// Need recatpcha verification, we need to create a recaptcha popover.
-    case reCAPTCHANeeded = 3
-}
-
-/// Result of email checking.
-struct EmailCheckRequestResult: DefaultRequestResult {
-    var code: Int
-    var msg: String?
-}
-
 public struct EmailCheckRequest: DefaultRequest {
+    public struct Configuration {
+        public init(apiRoot: String, email: String, reCAPTCHAInfo: (token: String, version: ReCAPTCHAVersion)? = nil) {
+            self.apiRoot = apiRoot
+            self.email = email
+            self.reCAPTCHAInfo = reCAPTCHAInfo
+        }
+        
+        public var apiRoot: String
+        /// `reCAPTCHA` version
+        //    NO USE!
+        public enum ReCAPTCHAVersion: String {
+            case v2 = "v2"
+            case v3 = "v3"
+        }
+        /// User's email to be checked, required
+        public var email: String
+
+        /// Info of `reCAPTCHA`, optional
+        public var reCAPTCHAInfo: (token: String, version: ReCAPTCHAVersion)?
+    }
     
-    public typealias Configuration = EmailCheckRequestConfiguration
-    typealias Result = EmailCheckRequestResult
-    public typealias ResultData = EmailCheckType
+    struct Result: DefaultRequestResult {
+        var code: Int
+        var msg: String?
+    }
+    
+    public enum ResultData: Int, Equatable {
+        /// Old user, shuold input password to login.
+        case oldUser = 0
+        /// New user, should check email for valid code and create password to sign up.
+        case newUser = 1
+        /// New user with old thuhole token, should create password to sign up.
+        case newUserWithToken = 2
+        /// Need recatpcha verification, we need to create a recaptcha popover.
+        case reCAPTCHANeeded = 3
+    }
+
     public typealias Error = DefaultRequestError
 
-    var configuration: EmailCheckRequestConfiguration
+    var configuration: Configuration
     
-    public init(configuration: EmailCheckRequestConfiguration) {
+    public init(configuration: Configuration) {
         self.configuration = configuration
     }
     
@@ -73,7 +66,7 @@ public struct EmailCheckRequest: DefaultRequest {
             urlPath: urlPath,
             parameters: parameters,
             method: .post,
-            transformer: { EmailCheckType(rawValue: $0.code) },
+            transformer: { ResultData(rawValue: $0.code) },
             completion: completion
         )
     }

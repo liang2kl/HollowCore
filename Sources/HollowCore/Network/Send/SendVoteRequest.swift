@@ -8,34 +8,32 @@
 import Foundation
 import Alamofire
 
-public struct SendVoteRequestConfiguration {
-    public init(apiRoot: String, token: String, option: String, postId: Int) {
-        self.apiRoot = apiRoot
-        self.token = token
-        self.option = option
-        self.postId = postId
-    }
-    
-    public var apiRoot: String
-    public var token: String
-    public var option: String
-    public var postId: Int
-}
-
-struct SendVoteRequestResult: DefaultRequestResult {
-    var code: Int
-    var msg: String?
-    var vote: Vote?
-}
-
 public struct SendVoteRequest: DefaultRequest {
-    public typealias Configuration = SendVoteRequestConfiguration
-    typealias Result = SendVoteRequestResult
+    public struct Configuration {
+        public init(apiRoot: String, token: String, option: String, postId: Int) {
+            self.apiRoot = apiRoot
+            self.token = token
+            self.option = option
+            self.postId = postId
+        }
+        
+        public var apiRoot: String
+        public var token: String
+        public var option: String
+        public var postId: Int
+    }
+
+    struct Result: DefaultRequestResult {
+        var code: Int
+        var msg: String?
+        var vote: Vote?
+    }
+
     public typealias ResultData = Vote
     public typealias Error = DefaultRequestError
-    var configuration: SendVoteRequestConfiguration
+    var configuration: Configuration
     
-    public init(configuration: SendVoteRequestConfiguration) {
+    public init(configuration: Configuration) {
         self.configuration = configuration
     }
     

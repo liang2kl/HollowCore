@@ -9,46 +9,42 @@
 import Alamofire
 import Foundation
 
-public struct LoginRequestConfiguration {
-    public init(apiRoot: String, email: String, password: String, deviceInfo: String, deviceToken: String? = nil) {
-        self.apiRoot = apiRoot
-        self.email = email
-        self.password = password
-        self.deviceInfo = deviceInfo
-        self.deviceToken = deviceToken
-    }
-    
-    public var apiRoot: String
-    public var email: String
-    public var password: String
-    let deviceType = 2
-    public var deviceInfo: String
-    public var deviceToken: String?
-}
-
-struct LoginRequestResult: DefaultRequestResult {
-    var code: Int
-    var token: String?
-    var uuid: UUID?
-    var msg: String?
-}
-
-public struct LoginRequestResultData {
-    public var token: String
-    public var uuid: UUID
-    public var message: String?
-}
-
 public struct LoginRequest: DefaultRequest {
-    
-    public typealias Configuration = LoginRequestConfiguration
-    typealias Result = LoginRequestResult
-    public typealias ResultData = LoginRequestResultData
+    public struct Configuration {
+        public init(apiRoot: String, email: String, password: String, deviceInfo: String, deviceToken: String? = nil) {
+            self.apiRoot = apiRoot
+            self.email = email
+            self.password = password
+            self.deviceInfo = deviceInfo
+            self.deviceToken = deviceToken
+        }
+        
+        public var apiRoot: String
+        public var email: String
+        public var password: String
+        let deviceType = 2
+        public var deviceInfo: String
+        public var deviceToken: String?
+    }
+
+    struct Result: DefaultRequestResult {
+        var code: Int
+        var token: String?
+        var uuid: UUID?
+        var msg: String?
+    }
+
+    public struct ResultData {
+        public var token: String
+        public var uuid: UUID
+        public var message: String?
+    }
+
     public typealias Error = DefaultRequestError
     
-    var configuration: LoginRequestConfiguration
+    var configuration: Configuration
     
-    public init(configuration: LoginRequestConfiguration) {
+    public init(configuration: Configuration) {
         self.configuration = configuration
     }
     
@@ -70,7 +66,7 @@ public struct LoginRequest: DefaultRequest {
             method: .post,
             transformer: { result in
                 guard let token = result.token, let uuid = result.uuid else { return nil }
-                return LoginRequestResultData(token: token, uuid: uuid, message: result.msg)
+                return ResultData(token: token, uuid: uuid, message: result.msg)
             },
             completion: completion
         )

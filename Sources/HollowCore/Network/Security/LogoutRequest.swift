@@ -9,30 +9,28 @@
 import Foundation
 import Alamofire
 
-public struct LogoutRequestConfiguration {
-    public init(apiRoot: String, token: String) {
-        self.apiRoot = apiRoot
-        self.token = token
+public struct LogoutRequest: DefaultRequest {
+    public struct Configuration {
+        public init(apiRoot: String, token: String) {
+            self.apiRoot = apiRoot
+            self.token = token
+        }
+        
+        public var apiRoot: String
+        public var token: String
+    }
+
+    struct Result: DefaultRequestResult {
+        var code: Int
+        var msg: String?
     }
     
-    public var apiRoot: String
-    public var token: String
-}
-
-struct LogoutRequestResult: DefaultRequestResult {
-    var code: Int
-    var msg: String?
-}
-
-public struct LogoutRequest: DefaultRequest {
-    public typealias Configuration = LogoutRequestConfiguration
-    typealias Result = LogoutRequestResult
     public typealias ResultData = ()
     public typealias Error = DefaultRequestError
     
-    var configuration: LogoutRequestConfiguration
+    var configuration: Configuration
     
-    public init(configuration: LogoutRequestConfiguration) {
+    public init(configuration: Configuration) {
         self.configuration = configuration
     }
     

@@ -8,35 +8,29 @@
 
 import Foundation
 
-/// config of GetConfig query
-public struct GetConfigRequestConfiguration {
-    /// - parameter configUrl: The url of the configuration file.
-    public init(configUrl: String) {
-        self.configUrl = configUrl
-    }
-    public var configUrl: String
-}
-
-public enum GetConfigRequestError: Error {
-    case serverError
-    case decodeFailed
-    case incorrectFormat
-    case invalidConfigUrl
-    case invalidConfiguration
-    case loadingCompleted
-    case other(description: String)
-}
-
 /// Get Config Request
 public struct GetConfigRequest: _Request {
-    public typealias Configuration = GetConfigRequestConfiguration
+    public struct Configuration {
+        public init(configUrl: String) {
+            self.configUrl = configUrl
+        }
+        public var configUrl: String
+    }
     typealias Result = HollowConfig
-    public typealias Error = GetConfigRequestError
+    public enum Error: Swift.Error {
+        case serverError
+        case decodeFailed
+        case incorrectFormat
+        case invalidConfigUrl
+        case invalidConfiguration
+        case loadingCompleted
+        case other(description: String)
+    }
     public typealias ResultData = HollowConfig
     
-    var configuration: GetConfigRequestConfiguration
+    var configuration: Configuration
     
-    public init(configuration: GetConfigRequestConfiguration) {
+    public init(configuration: Configuration) {
         self.configuration = configuration
     }
     
@@ -95,15 +89,14 @@ public struct GetConfigRequest: _Request {
         task.resume()
     }
     
-    static private func validateConfig(_ config: GetConfigRequestResult) -> Bool {
-        return
-        !config.apiRootUrls.isEmpty &&
+    static private func validateConfig(_ config: HollowConfig) -> Bool {
+        return (!config.apiRootUrls.isEmpty &&
         !config.emailSuffixes.isEmpty &&
         !config.imgBaseUrls.isEmpty &&
         !config.name.isEmpty &&
         !config.recaptchaUrl.isEmpty &&
         !config.tosUrl.isEmpty &&
         !config.privacyUrl.isEmpty &&
-        !config.rulesUrl.isEmpty
+        !config.rulesUrl.isEmpty)
     }
 }

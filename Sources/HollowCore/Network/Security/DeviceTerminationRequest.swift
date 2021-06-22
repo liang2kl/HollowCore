@@ -8,34 +8,30 @@
 import Foundation
 import Alamofire
 
-/// The request parameter is the UUID of the device.
-public struct DeviceTerminationRequestConfiguration {
-    public init(apiRoot: String, token: String, deviceUUID: String) {
-        self.apiRoot = apiRoot
-        self.token = token
-        self.deviceUUID = deviceUUID
+public struct DeviceTerminationRequest: DefaultRequest {
+    public struct Configuration {
+        public init(apiRoot: String, token: String, deviceUUID: String) {
+            self.apiRoot = apiRoot
+            self.token = token
+            self.deviceUUID = deviceUUID
+        }
+        
+        public var apiRoot: String
+        public var token: String
+        public var deviceUUID: String
     }
     
-    public var apiRoot: String
-    public var token: String
-    public var deviceUUID: String
-}
+    struct Result: DefaultRequestResult {
+        var code: Int
+        var msg: String?
+    }
 
-struct DeviceTerminationRequestResult: DefaultRequestResult {
-    var code: Int
-    var msg: String?
-}
-
-public struct DeviceTerminationRequest: DefaultRequest {
-    
-    public typealias Configuration = DeviceTerminationRequestConfiguration
-    typealias Result = DeviceTerminationRequestResult
     public typealias ResultData = ()
     public typealias Error = DefaultRequestError
     
-    var configuration: DeviceTerminationRequestConfiguration
+    var configuration: Configuration
     
-    public init(configuration: DeviceTerminationRequestConfiguration) {
+    public init(configuration: Configuration) {
         self.configuration = configuration
     }
     

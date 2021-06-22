@@ -8,32 +8,27 @@
 import Foundation
 import Alamofire
 
-public struct AttentionListSearchRequestConfiguration {
-    public init(apiRoot: String, token: String, keywords: String, page: Int) {
-        self.apiRoot = apiRoot
-        self.token = token
-        self.keywords = keywords
-        self.page = page
-    }
-    
-    public var apiRoot: String
-    public var token: String
-    public var keywords: String
-    public var page: Int
-}
-
-typealias AttentionListSearchRequestResult = PostListRequestResult
-
 public struct AttentionListSearchRequest: DefaultRequest {
-
-    public typealias Configuration = AttentionListSearchRequestConfiguration
-    typealias Result = AttentionListSearchRequestResult
+    public struct Configuration {
+        public init(apiRoot: String, token: String, keywords: String, page: Int) {
+            self.apiRoot = apiRoot
+            self.token = token
+            self.keywords = keywords
+            self.page = page
+        }
+        
+        public var apiRoot: String
+        public var token: String
+        public var keywords: String
+        public var page: Int
+    }
+    typealias Result = PostListRequest.Result
     public typealias ResultData = [PostWrapper]
     public typealias Error = DefaultRequestError
     
-    var configuration: AttentionListSearchRequestConfiguration
+    var configuration: Configuration
     
-    public init(configuration: AttentionListSearchRequestConfiguration) {
+    public init(configuration: Configuration) {
         self.configuration = configuration
     }
     

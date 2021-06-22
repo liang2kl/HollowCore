@@ -8,45 +8,42 @@
 import Foundation
 import Alamofire
 
-public struct SendCommentRequestConfiguration {
-    public init(apiRoot: String, token: String, text: String, imageData: String? = nil, postId: Int, replyCommentId: Int? = nil) {
-        self.apiRoot = apiRoot
-        self.token = token
-        self.text = text
-        self.imageData = imageData
-        self.postId = postId
-        self.replyCommentId = replyCommentId
-    }
-    
-    public var apiRoot: String
-    public var token: String
-    
-    public var text: String
-    public var imageData: String?
-    /// Id of the post to be commented
-    public var postId: Int
-    public var replyCommentId: Int?
-}
-
-struct SendCommentRequestResult: DefaultRequestResult {
-    var code: Int
-    var msg: String?
-    var commentId: Int?
-}
-
-public struct SendCommentRequestResultData {
-    public var commentId: Int?
-}
-
 public struct SendCommentRequest: DefaultRequest {
-    public typealias Configuration = SendCommentRequestConfiguration
-    typealias Result = SendCommentRequestResult
-    public typealias ResultData = SendCommentRequestResultData
+    public struct Configuration {
+        public init(apiRoot: String, token: String, text: String, imageData: String? = nil, postId: Int, replyCommentId: Int? = nil) {
+            self.apiRoot = apiRoot
+            self.token = token
+            self.text = text
+            self.imageData = imageData
+            self.postId = postId
+            self.replyCommentId = replyCommentId
+        }
+        
+        public var apiRoot: String
+        public var token: String
+        
+        public var text: String
+        public var imageData: String?
+        /// Id of the post to be commented
+        public var postId: Int
+        public var replyCommentId: Int?
+    }
+
+    struct Result: DefaultRequestResult {
+        var code: Int
+        var msg: String?
+        var commentId: Int?
+    }
+
+    public struct ResultData {
+        public var commentId: Int?
+    }
+
     public typealias Error = DefaultRequestError
     
-    var configuration: SendCommentRequestConfiguration
+    var configuration: Configuration
     
-    public init(configuration: SendCommentRequestConfiguration) {
+    public init(configuration: Configuration) {
         self.configuration = configuration
     }
     

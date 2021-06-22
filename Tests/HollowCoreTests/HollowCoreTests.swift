@@ -53,7 +53,7 @@ final class HollowCoreTests: XCTestCase {
         let test = NetworkTest<PostDetailRequest>(configuration: .init(apiRoot: testAPIRoot, token: testToken, postId: 1, includeComments: true, lastUpdateTimestamp: post.post.updatedAt, cachedPost: post), validate: {
             if case .cached = $0 { return true }
             if case .new(let newPost) = $0 {
-                return newPost.post.updatedAt == post.post.updatedAt
+                return newPost.post.updatedAt > post.post.updatedAt
             }
             return true
         })

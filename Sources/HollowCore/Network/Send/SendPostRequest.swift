@@ -8,38 +8,36 @@
 import Foundation
 import Alamofire
 
-public struct SendPostRequestConfiguration {
-    public init(apiRoot: String, token: String, text: String, tag: String? = nil, imageData: String? = nil, voteData: [String]? = nil) {
-        self.apiRoot = apiRoot
-        self.token = token
-        self.text = text
-        self.tag = tag
-        self.imageData = imageData
-        self.voteData = voteData
-    }
-    
-    public var apiRoot: String
-    public var token: String
-    public var text: String
-    public var tag: String?
-    public var imageData: String?
-    public var voteData: [String]?
-}
-
-struct SendPostRequestResult: DefaultRequestResult {
-    var code: Int
-    var msg: String?
-}
-
 public struct SendPostRequest: DefaultRequest {
-    public typealias Configuration = SendPostRequestConfiguration
-    typealias Result = SendPostRequestResult
+    public struct Configuration {
+        public init(apiRoot: String, token: String, text: String, tag: String? = nil, imageData: String? = nil, voteData: [String]? = nil) {
+            self.apiRoot = apiRoot
+            self.token = token
+            self.text = text
+            self.tag = tag
+            self.imageData = imageData
+            self.voteData = voteData
+        }
+        
+        public var apiRoot: String
+        public var token: String
+        public var text: String
+        public var tag: String?
+        public var imageData: String?
+        public var voteData: [String]?
+    }
+
+    struct Result: DefaultRequestResult {
+        var code: Int
+        var msg: String?
+    }
+
     public typealias ResultData = ()
     public typealias Error = DefaultRequestError
 
-    var configuration: SendPostRequestConfiguration
+    var configuration: Configuration
     
-    public init(configuration: SendPostRequestConfiguration) {
+    public init(configuration: Configuration) {
         self.configuration = configuration
     }
     

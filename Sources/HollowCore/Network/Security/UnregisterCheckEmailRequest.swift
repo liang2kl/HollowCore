@@ -8,38 +8,35 @@
 
 import Foundation
 
-public struct UnregisterCheckEmailRequestConfiguration {
-    public init(apiRoot: String, email: String, recaptchaToken: String? = nil) {
-        self.apiRoot = apiRoot
-        self.email = email
-        self.recaptchaToken = recaptchaToken
+public struct UnregisterCheckEmailRequest: DefaultRequest {
+    public struct Configuration {
+        public init(apiRoot: String, email: String, recaptchaToken: String? = nil) {
+            self.apiRoot = apiRoot
+            self.email = email
+            self.recaptchaToken = recaptchaToken
+        }
+        
+        var apiRoot: String
+        var email: String
+        var recaptchaToken: String?
+        let recaptchaVersion = "v2"
+    }
+
+    struct Result: DefaultRequestResult {
+        var code: Int
+        var msg: String?
     }
     
-    var apiRoot: String
-    var email: String
-    var recaptchaToken: String?
-    let recaptchaVersion = "v2"
-}
+    public enum ResultData: Int {
+        case success = 1
+        case needReCAPTCHA = 3
+    }
 
-struct UnregisterCheckEmailRequestResult: DefaultRequestResult {
-    var code: Int
-    var msg: String?
-}
-
-public enum UnregisterCheckEmailRequestResultData: Int {
-    case success = 1
-    case needReCAPTCHA = 3
-}
-
-public struct UnregisterCheckEmailRequest: DefaultRequest {
-    public typealias Configuration = UnregisterCheckEmailRequestConfiguration
-    typealias Result = UnregisterCheckEmailRequestResult
-    public typealias ResultData = UnregisterCheckEmailRequestResultData
     public typealias Error = DefaultRequestError
     
-    var configuration: UnregisterCheckEmailRequestConfiguration
+    var configuration: Configuration
     
-    public init(configuration: UnregisterCheckEmailRequestConfiguration) {
+    public init(configuration: Configuration) {
         self.configuration = configuration
     }
     

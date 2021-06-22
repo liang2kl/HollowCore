@@ -8,54 +8,47 @@
 import Foundation
 import Alamofire
 
-public struct PostDetailRequestConfiguration {
-    public var apiRoot: String
-    public var token: String
-    public var postId: Int
-    /// when don't need comments, only need main post, set `needComments` to false
-    public var includeComments: Bool
-    public var lastUpdateTimestamp: Int?
-    public var cachedPost: PostWrapper?
-    
-    public init(apiRoot: String, token: String, postId: Int, includeComments: Bool) {
-        self.apiRoot = apiRoot
-        self.token = token
-        self.postId = postId
-        self.includeComments = includeComments
-    }
-    
-    public init(apiRoot: String, token: String, postId: Int, includeComments: Bool, lastUpdateTimestamp: Int, cachedPost: PostWrapper) {
-        self.apiRoot = apiRoot
-        self.token = token
-        self.postId = postId
-        self.includeComments = includeComments
-        self.lastUpdateTimestamp = lastUpdateTimestamp
-        self.cachedPost = cachedPost
-    }
-}
-
-struct PostDetailRequestResult: DefaultRequestResult {
-    var code: Int
-    var msg: String?
-    var post: Post?
-    var data: [Comment]?
-}
-
-public enum PostDetailRequestResultData {
-    case cached(PostWrapper)
-    case new(PostWrapper)
-}
-
 public struct PostDetailRequest: DefaultRequest {
-    
-    public typealias Configuration = PostDetailRequestConfiguration
-    typealias Result = PostDetailRequestResult
-    public typealias ResultData = PostDetailRequestResultData
+    public struct Configuration {
+        public var apiRoot: String
+        public var token: String
+        public var postId: Int
+        /// when don't need comments, only need main post, set `needComments` to false
+        public var includeComments: Bool
+        public var lastUpdateTimestamp: Int?
+        public var cachedPost: PostWrapper?
+        
+        public init(apiRoot: String, token: String, postId: Int, includeComments: Bool) {
+            self.apiRoot = apiRoot
+            self.token = token
+            self.postId = postId
+            self.includeComments = includeComments
+        }
+        
+        public init(apiRoot: String, token: String, postId: Int, includeComments: Bool, lastUpdateTimestamp: Int, cachedPost: PostWrapper) {
+            self.apiRoot = apiRoot
+            self.token = token
+            self.postId = postId
+            self.includeComments = includeComments
+            self.lastUpdateTimestamp = lastUpdateTimestamp
+            self.cachedPost = cachedPost
+        }
+    }
+    struct Result: DefaultRequestResult {
+        var code: Int
+        var msg: String?
+        var post: Post?
+        var data: [Comment]?
+    }
+    public enum ResultData {
+        case cached(PostWrapper)
+        case new(PostWrapper)
+    }
     public typealias Error = DefaultRequestError
     
-    var configuration: PostDetailRequestConfiguration
+    var configuration: Configuration
     
-    public init(configuration: PostDetailRequestConfiguration) {
+    public init(configuration: Configuration) {
         self.configuration = configuration
     }
     

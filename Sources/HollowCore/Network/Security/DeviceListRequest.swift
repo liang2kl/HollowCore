@@ -8,49 +8,45 @@
 import Foundation
 import Alamofire
 
-public struct DeviceListRequestConfiguration {
-    public init(apiRoot: String, token: String) {
-        self.apiRoot = apiRoot
-        self.token = token
-    }
-    
-    public var apiRoot: String
-    public var token: String
-}
-
-struct DeviceListRequestResult: DefaultRequestResult {
-    struct DeviceListResult: Codable {
-        var deviceUuid: String
-        var loginDate: String
-        var deviceInfo: String
-        var deviceType: Int
-    }
-    var code: Int
-    var msg: String?
-    var data: [DeviceListResult]?
-    var thisDevice: String?
-}
-
-public struct DeviceListRequestResultData: Codable {
-    public init(devices: [DeviceInformation], thisDeviceUUID: String) {
-        self.devices = devices
-        self.thisDeviceUUID = thisDeviceUUID
-    }
-    
-    public var devices: [DeviceInformation]
-    public var thisDeviceUUID: String
-}
-
 public struct DeviceListRequest: DefaultRequest {
+    public struct Configuration {
+        public init(apiRoot: String, token: String) {
+            self.apiRoot = apiRoot
+            self.token = token
+        }
+        
+        public var apiRoot: String
+        public var token: String
+    }
     
-    public typealias Configuration = DeviceListRequestConfiguration
-    typealias Result = DeviceListRequestResult
-    public typealias ResultData = DeviceListRequestResultData
+    struct Result: DefaultRequestResult {
+        struct DeviceListResult: Codable {
+            var deviceUuid: String
+            var loginDate: String
+            var deviceInfo: String
+            var deviceType: Int
+        }
+        var code: Int
+        var msg: String?
+        var data: [DeviceListResult]?
+        var thisDevice: String?
+    }
+    
+    public struct ResultData: Codable {
+        public init(devices: [DeviceInformation], thisDeviceUUID: String) {
+            self.devices = devices
+            self.thisDeviceUUID = thisDeviceUUID
+        }
+        
+        public var devices: [DeviceInformation]
+        public var thisDeviceUUID: String
+    }
+    
     public typealias Error = DefaultRequestError
     
-    var configuration: DeviceListRequestConfiguration
+    var configuration: Configuration
     
-    public init(configuration: DeviceListRequestConfiguration) {
+    public init(configuration: Configuration) {
         self.configuration = configuration
     }
     

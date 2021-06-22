@@ -8,18 +8,15 @@
 import Foundation
 import Alamofire
 
-public typealias AttentionListRequestConfiguration = PostListRequestConfiguration
-
-typealias AttentionListRequestResult = PostListRequestResult
-
 public struct AttentionListRequest: DefaultRequest {
-    public typealias Configuration = AttentionListRequestConfiguration
-    typealias Result = AttentionListRequestResult
+    public typealias Configuration = PostListRequest.Configuration
+    typealias Result = PostListRequest.Result
     public typealias ResultData = [PostWrapper]
     public typealias Error = DefaultRequestError
-    var configuration: AttentionListRequestConfiguration
     
-    public init(configuration: AttentionListRequestConfiguration) {
+    var configuration: Configuration
+    
+    public init(configuration: Configuration) {
         self.configuration = configuration
     }
     

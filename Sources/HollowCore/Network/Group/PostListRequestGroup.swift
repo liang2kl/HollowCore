@@ -10,14 +10,21 @@ import Foundation
 
 /// A wrapper for a group of similar request for posts.
 public struct PostListRequestGroup: Request {
-    public typealias Configuration = PostListRequestGroupConfiguration
-    typealias Result = PostListRequestResult
+    public enum Configuration {
+        case postList(PostListRequest.Configuration)
+        case search(SearchRequest.Configuration)
+        case searchTrending(SearchRequest.Configuration)
+        case attentionList(AttentionListRequest.Configuration)
+        case attentionListSearch(AttentionListSearchRequest.Configuration)
+        case wander(RandomListRequest.Configuration)
+    }
+    typealias Result = PostListRequest.Result
     public typealias ResultData = [PostWrapper]
     public typealias Error = DefaultRequestError
 
-    var configuration: PostListRequestGroupConfiguration
+    var configuration: Configuration
     
-    public init(configuration: PostListRequestGroupConfiguration) {
+    public init(configuration: Configuration) {
         self.configuration = configuration
     }
     
@@ -44,15 +51,8 @@ public struct PostListRequestGroup: Request {
     
 }
 
-public enum PostListRequestGroupConfiguration {
-    case postList(PostListRequestConfiguration)
-    case search(SearchRequestConfiguration)
-    case searchTrending(SearchRequestConfiguration)
-    case attentionList(AttentionListRequestConfiguration)
-    case attentionListSearch(AttentionListSearchRequestConfiguration)
-    case wander(RandomListRequestConfiguration)
-}
-
-public enum PostListRequestGroupType {
-    case postList, search, searchTrending, attentionList, attentionListSearch, wander
+public extension PostListRequestGroup {
+    enum RequestType {
+        case postList, search, searchTrending, attentionList, attentionListSearch, wander
+    }
 }

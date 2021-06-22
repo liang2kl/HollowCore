@@ -21,6 +21,22 @@ public enum PostPermissionType: String, Codable, CaseIterable {
 
 /// Post for request result, see `http-api doc`
 public struct Post: Codable {
+    public init(attention: Bool, deleted: Bool, likenum: Int, permissions: [PostPermissionType], pid: Int, reply: Int, tag: String? = nil, text: String, timestamp: Int, updatedAt: Int, url: String? = nil, imageMetadata: ImageMetadata? = nil, vote: Vote? = nil) {
+        self.attention = attention
+        self.deleted = deleted
+        self.likenum = likenum
+        self.permissions = permissions
+        self.pid = pid
+        self.reply = reply
+        self.tag = tag
+        self.text = text
+        self.timestamp = timestamp
+        self.updatedAt = updatedAt
+        self.url = url
+        self.imageMetadata = imageMetadata
+        self.vote = vote
+    }
+    
     public var attention: Bool
     public var deleted: Bool
     public var likenum: Int

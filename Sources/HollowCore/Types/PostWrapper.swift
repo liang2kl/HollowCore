@@ -8,6 +8,11 @@
 import Foundation
 
 public struct PostWrapper: Codable {
+    public init(post: Post, comments: [Comment]) {
+        self.post = post
+        self.comments = comments
+    }
+    
     public var post: Post
     public var comments: [Comment]
 }

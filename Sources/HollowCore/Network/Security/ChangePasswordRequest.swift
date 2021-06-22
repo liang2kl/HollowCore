@@ -8,42 +8,36 @@
 import Alamofire
 import Foundation
 
-/// Configurations for changing password.
-public struct ChangePasswordRequestConfiguration {
-    public init(apiRoot: String, email: String, oldPassword: String, newPassword: String) {
-        self.apiRoot = apiRoot
-        self.email = email
-        self.oldPassword = oldPassword
-        self.newPassword = newPassword
-    }
-    
-    public var apiRoot: String
-    /// User's email
-    public var email: String
-    /// Previous hashed password
-    public var oldPassword: String
-    /// New hashed password
-    public var newPassword: String
-}
-
-/// Result of an changing password attempt.
-struct ChangePasswordRequestResult: DefaultRequestResult {
-    /// Result type of changing password.
-    /// The type of result received.
-    var code: Int
-    /// Error mssage.
-    var msg: String?
-}
-
 public struct ChangePasswordRequest: DefaultRequest {
-    public typealias Configuration = ChangePasswordRequestConfiguration
-    typealias Result = ChangePasswordRequestResult
+    public struct Configuration {
+        public init(apiRoot: String, email: String, oldPassword: String, newPassword: String) {
+            self.apiRoot = apiRoot
+            self.email = email
+            self.oldPassword = oldPassword
+            self.newPassword = newPassword
+        }
+        
+        public var apiRoot: String
+        /// User's email
+        public var email: String
+        /// Previous hashed password
+        public var oldPassword: String
+        /// New hashed password
+        public var newPassword: String
+    }
+    struct Result: DefaultRequestResult {
+        /// Result type of changing password.
+        /// The type of result received.
+        var code: Int
+        /// Error mssage.
+        var msg: String?
+    }
     public typealias ResultData = ()
     public typealias Error = DefaultRequestError
     
-    var configuration: ChangePasswordRequestConfiguration
+    var configuration: Configuration
     
-    public init(configuration: ChangePasswordRequestConfiguration) {
+    public init(configuration: Configuration) {
         self.configuration = configuration
     }
     

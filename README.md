@@ -4,6 +4,12 @@ Swift 语言的树洞网络请求库。
 
 A library for networking in Tree Hollow, written in Swift.
 
+## 要求 Requirements
+
+| Platform | Minimum Swift Version | Installation | Status |
+| --- | --- | --- | --- |
+| iOS 13.0+ / macOS 10.15+ / tvOS 13.0+ / watchOS 6.0+ | 5.5 | Swift Package Manager | Partially Tested |
+
 ## 安装 Installation
 
 使用 Swift Package Manager：
@@ -20,7 +26,7 @@ dependencies: [
 
 ### Config
 
-| Request | Function |
+| Request | Intent |
 | --- | --- |
 | `GetConfigRequest` | fetch Tree Hollow config |
 | `GetPushRequest` | get push notification preferences |
@@ -28,19 +34,19 @@ dependencies: [
 
 ### Contents
 
-| Request | Function |
+| Request | Intent |
 | --- | --- |
 | `AttentionListRequest` | fetch attention list |
 | `AttentiionListSearchRequest` | search in attention list |
 | `PostDetailRequest` | fetch specific post |
 | `PostListRequest` | fetch timeline posts |
-| `RandomListRequest` | search wander posts |
+| `RandomListRequest` | fetch wander posts |
 | `SearchRequest` | search in all posts |
 | `SystemMessageRequest` | fetch system message |
 
 ### Edit
 
-| Request | Function |
+| Request | Intent |
 | --- | --- |
 | `EditAttentionRequest` | toggle attention state for specific post |
 | `ReportCommentRequest` | report specific comment |
@@ -48,7 +54,7 @@ dependencies: [
 
 ### Security
 
-| Request | Function |
+| Request | Intent |
 | --- | --- |
 | `AccountCreationRequest` | register |
 | `ChangePasswordRequest` | change password |
@@ -63,7 +69,7 @@ dependencies: [
 
 ### Send
 
-| Request | Function |
+| Request | Intent |
 | --- | --- |
 | `SendCommentRequest` | send comment |
 | `SendPostRequest` | send post |
@@ -88,8 +94,7 @@ request.performRequest { result in
 
 ### Async API
 
-> 要求 macOS 12+、iOS 15+。
-> Requires macOS 12+ and iOS 15+.
+> 要求 macOS 12+、iOS 15+ / Requires macOS 12+ and iOS 15+
 
 ```swift
 let request = PostListRequest(configuration: configuration)
@@ -110,7 +115,7 @@ do {
 
 ### Publisher
 
-#### 单个请求 Publisher for a Single Request
+#### 单个请求 Single Request
 
 ```swift
 let request = PostListRequest(configuration: configuration)
@@ -132,7 +137,7 @@ request.publisher
     .store(...)
 ```
 
-#### 多个请求 Publisher for Multiple Requests
+#### 多个请求 Multiple Requests
 
 ```swift
 let requests: [PostDetailRequest] = [...]

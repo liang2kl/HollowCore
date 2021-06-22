@@ -8,38 +8,34 @@
 import Foundation
 import Alamofire
 
-public struct EditAttentionRequestConfiguration {
-    public init(apiRoot: String, token: String, postId: Int, switchToAttention: Bool) {
-        self.apiRoot = apiRoot
-        self.token = token
-        self.postId = postId
-        self.switchToAttention = switchToAttention
-    }
-    
-    public var apiRoot: String
-    public var token: String
-    /// Post id.
-    public var postId: Int
-    /// `false` for cancel attention, `true` otherwise
-    public var switchToAttention: Bool
-}
-
-struct EditAttentionRequestResult: DefaultRequestResult {
-    var code: Int
-    var msg: String?
-    /// The post data after editing attention
-    var data: Post?
-}
-
 public struct EditAttentionRequest: DefaultRequest {
-    public typealias Configuration = EditAttentionRequestConfiguration
-    typealias Result = EditAttentionRequestResult
+    public struct Configuration {
+        public init(apiRoot: String, token: String, postId: Int, switchToAttention: Bool) {
+            self.apiRoot = apiRoot
+            self.token = token
+            self.postId = postId
+            self.switchToAttention = switchToAttention
+        }
+        
+        public var apiRoot: String
+        public var token: String
+        /// Post id.
+        public var postId: Int
+        /// `false` for cancel attention, `true` otherwise
+        public var switchToAttention: Bool
+    }
+    struct Result: DefaultRequestResult {
+        var code: Int
+        var msg: String?
+        /// The post data after editing attention
+        var data: Post?
+    }
     public typealias ResultData = Post
     public typealias Error = DefaultRequestError
     
-    var configuration: EditAttentionRequestConfiguration
+    var configuration: Configuration
     
-    public init(configuration: EditAttentionRequestConfiguration) {
+    public init(configuration: Configuration) {
         self.configuration = configuration
     }
     
@@ -62,6 +58,7 @@ public struct EditAttentionRequest: DefaultRequest {
             headers: headers,
             method: .post,
             transformer: { $0.data },
-            completion: completion)
+            completion: completion
+        )
     }
 }

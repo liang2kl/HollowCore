@@ -8,34 +8,32 @@
 
 import Foundation
 
-public struct UnregisterRequestConfiguration {
-    public init(apiRoot: String, email: String, nonce: String, validCode: String) {
-        self.apiRoot = apiRoot
-        self.email = email
-        self.nonce = nonce
-        self.validCode = validCode
-    }
-    
-    public var apiRoot: String
-    public var email: String
-    public var nonce: String
-    public var validCode: String
-}
-
-struct UnregisterRequestResult: DefaultRequestResult {
-    var code: Int
-    var msg: String?
-}
-
 public struct UnregisterRequest: DefaultRequest {
-    public typealias Configuration = UnregisterRequestConfiguration
-    typealias Result = UnregisterRequestResult
+    public struct Configuration {
+        public init(apiRoot: String, email: String, nonce: String, validCode: String) {
+            self.apiRoot = apiRoot
+            self.email = email
+            self.nonce = nonce
+            self.validCode = validCode
+        }
+        
+        public var apiRoot: String
+        public var email: String
+        public var nonce: String
+        public var validCode: String
+    }
+
+    struct Result: DefaultRequestResult {
+        var code: Int
+        var msg: String?
+    }
+
     public typealias ResultData = ()
     public typealias Error = DefaultRequestError
     
-    var configuration: UnregisterRequestConfiguration
+    var configuration: Configuration
     
-    public init(configuration: UnregisterRequestConfiguration) {
+    public init(configuration: Configuration) {
         self.configuration = configuration
     }
     

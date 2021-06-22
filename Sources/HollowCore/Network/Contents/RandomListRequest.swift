@@ -8,21 +8,15 @@
 import Foundation
 import Alamofire
 
-public typealias RandomListRequestConfiguration = PostListRequestConfiguration
-
-typealias RandomListRequestResult = PostListRequestResult
-
-public typealias RandomListRequestResultData = [PostWrapper]
-
 public struct RandomListRequest: DefaultRequest {
-    public typealias Configuration = RandomListRequestConfiguration
-    typealias Result = RandomListRequestResult
-    public typealias ResultData = RandomListRequestResultData
+    public typealias Configuration = PostListRequest.Configuration
+    typealias Result = PostListRequest.Result
+    public typealias ResultData = [PostWrapper]
     public typealias Error = DefaultRequestError
     
-    var configuration: RandomListRequestConfiguration
+    var configuration: Configuration
     
-    public init(configuration: RandomListRequestConfiguration) {
+    public init(configuration: Configuration) {
         self.configuration = configuration
     }
     

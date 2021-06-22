@@ -8,53 +8,47 @@
 import Foundation
 import Alamofire
 
-/// Configuration for PostListRequest
-public struct PostListRequestConfiguration {
-    public init(apiRoot: String, token: String, page: Int) {
-        self.apiRoot = apiRoot
-        self.token = token
-        self.page = page
-    }
-    
-    public var apiRoot: String
-    public var token: String
-    public var page: Int
-}
-
-/// Result for PostListRequest
-struct PostListRequestResult: DefaultRequestResult {
-    var code: Int
-    var msg: String?
-    var data: [Post]?
-    var comments: [String: [Comment]?]?
-    
-    func toPostWrappers() -> [PostWrapper]? {
-        guard let data = data else { return nil }
-
-        return data.map { post in
-            // process comments of current post
-            var commentData = [Comment]()
-            if let comments = comments, let commentsOfPost = comments[post.pid.string] {
-                if let comments = commentsOfPost {
-                    commentData = comments
-                }
-            }
-            return PostWrapper(post: post, comments: commentData)
-        }
-    }
-}
-
 public typealias PostListRequestResultData = [PostWrapper]
 
 /// PostListRequest
 public struct PostListRequest: DefaultRequest {
-    public typealias Configuration = PostListRequestConfiguration
-    typealias Result = PostListRequestResult
-    public typealias ResultData = PostListRequestResultData
+    public struct Configuration {
+        public init(apiRoot: String, token: String, page: Int) {
+            self.apiRoot = apiRoot
+            self.token = token
+            self.page = page
+        }
+        
+        public var apiRoot: String
+        public var token: String
+        public var page: Int
+    }
+    struct Result: DefaultRequestResult {
+        var code: Int
+        var msg: String?
+        var data: [Post]?
+        var comments: [String: [Comment]?]?
+        
+        func toPostWrappers() -> [PostWrapper]? {
+            guard let data = data else { return nil }
+
+            return data.map { post in
+                // process comments of current post
+                var commentData = [Comment]()
+                if let comments = comments, let commentsOfPost = comments[post.pid.string] {
+                    if let comments = commentsOfPost {
+                        commentData = comments
+                    }
+                }
+                return PostWrapper(post: post, comments: commentData)
+            }
+        }
+    }
+    public typealias ResultData = [PostWrapper]
     public typealias Error = DefaultRequestError
-    var configuration: PostListRequestConfiguration
+    var configuration: Configuration
     
-    public init(configuration: PostListRequestConfiguration) {
+    public init(configuration: Configuration) {
         self.configuration = configuration
     }
     

@@ -9,32 +9,28 @@
 import Foundation
 import Alamofire
 
-public struct GetPushRequestConfiguration {
-    public init(apiRoot: String, token: String) {
-        self.apiRoot = apiRoot
-        self.token = token
-    }
-    
-    public var apiRoot: String
-    public var token: String
-}
-
-struct GetPushRequestResult: DefaultRequestResult {
-    public var code: Int
-    public var msg: String?
-    public var data: PushNotificationType?
-}
-
 public struct GetPushRequest: DefaultRequest {
     
-    public typealias Configuration = GetPushRequestConfiguration
-    typealias Result = GetPushRequestResult
+    public struct Configuration {
+        public init(apiRoot: String, token: String) {
+            self.apiRoot = apiRoot
+            self.token = token
+        }
+        
+        public var apiRoot: String
+        public var token: String
+    }
+    struct Result: DefaultRequestResult {
+        public var code: Int
+        public var msg: String?
+        public var data: PushNotificationType?
+    }
     public typealias ResultData = PushNotificationType
     public typealias Error = DefaultRequestError
     
-    var configuration: GetPushRequestConfiguration
+    var configuration: Configuration
     
-    public init(configuration: GetPushRequestConfiguration) {
+    public init(configuration: Configuration) {
         self.configuration = configuration
     }
     
