@@ -39,7 +39,7 @@ extension Request {
     /// Async version of `performRequest(completion:)`.
     /// - Returns: The fetched data.
     /// - Throws: An ``Error`` instance.
-    public func result() async throws -> ResultData {
+    public func data() async throws -> ResultData {
         return try await withCheckedThrowingContinuation({ continuation in
             performRequest(completion: { result in
                 if case .success(let data) = result {
@@ -47,6 +47,21 @@ extension Request {
                 }
                 if case .failure(let error) = result {
                     continuation.resume(throwing: error)
+                }
+            })
+        })
+    }
+    
+    /// Async version of `performRequest(completion:)`.
+    /// - Returns: The `Result` type of `ResultData` and `Error`.
+    public func result() async -> ResultType<ResultData, Error> {
+        return await withCheckedContinuation({ continuation in
+            performRequest(completion: { result in
+                if case .success(let data) = result {
+                    continuation.resume(returning: .success(data))
+                }
+                if case .failure(let error) = result {
+                    continuation.resume(returning: .failure(error))
                 }
             })
         })

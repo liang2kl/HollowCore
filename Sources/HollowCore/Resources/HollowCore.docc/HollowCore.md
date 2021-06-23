@@ -42,11 +42,11 @@ Noted that `R.Error` is a specific type which provides information of the error 
 
 #### async/await
 
-For Swift 5.5+, an `async` method ``Request/result()`` is provided in addition to ``Request/performRequest(completion:)``.
+For Swift 5.5+, `async` methods ``Request/data()`` and ``Request/result()`` is provided in addition to ``Request/performRequest(completion:)``.
 
 ```swift
 do {
-    let data = try await request.result()
+    let data = try await request.data()
     // Handle result
 } catch let error as PostListRequest.Error {
     // Handle error with specific type
@@ -56,6 +56,17 @@ do {
     }
 } catch {
     // Not reachable
+}
+```
+
+```swift
+let result = await request.result()
+
+switch result {
+case .success(let data):
+    // Handle data
+case .failure(let error):
+    // Handle error
 }
 ```
 

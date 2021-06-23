@@ -41,7 +41,7 @@ struct NetworkTest<R: Request> {
     @available(macOS 12, iOS 15, watchOS 8, tvOS 15, *)
     private func testAsyncAPI(with expectation: XCTestExpectation) async {
         do {
-            let data = try await request.result()
+            let data = try await request.data()
             expectation.fulfill()
             if !validate(data) {
                 XCTAssert(false, "Receiving invalid data on async API:\n\(data)")
