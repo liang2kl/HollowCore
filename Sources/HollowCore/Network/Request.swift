@@ -22,14 +22,16 @@ public protocol Request {
     init(configuration: Configuration)
     /// Perform request and fetch the data.
     /// - Parameter completion: The completion handler.
+    ///
+    /// The completion handler will be executed on a background thread.
     func performRequest(completion: @escaping (ResultType<ResultData, Error>) -> Void)
 }
 
-// Internal used protocol
+/// Internal used protocol.
 protocol _Request: Request {
-    // Configuration.
+    /// Configuration.
     var configuration: Configuration { get }
-    // Result type for the request, get directly from the server.
+    /// Result type for the request, get directly from the server.
     associatedtype Result
 }
 
@@ -40,31 +42,21 @@ extension Request {
     /// - Returns: The fetched data.
     /// - Throws: An ``Error`` instance.
     public func data() async throws -> ResultData {
-        return try await withCheckedThrowingContinuation({ continuation in
-            performRequest(completion: { result in
-                if case .success(let data) = result {
-                    continuation.resume(returning: data)
-                }
-                if case .failure(let error) = result {
-                    continuation.resume(throwing: error)
-                }
-            })
-        })
+        let result = await result()
+        switch result {
+        case .success(let data): return data
+        case .failure(let error): throw error
+        }
     }
     
     /// Async version of `performRequest(completion:)`.
     /// - Returns: The `Result` type of `ResultData` and `Error`.
     public func result() async -> ResultType<ResultData, Error> {
-        return await withCheckedContinuation({ continuation in
-            performRequest(completion: { result in
-                if case .success(let data) = result {
-                    continuation.resume(returning: .success(data))
-                }
-                if case .failure(let error) = result {
-                    continuation.resume(returning: .failure(error))
-                }
-            })
-        })
+        return await withCheckedContinuation { continuation in
+            performRequest { result in
+                continuation.resume(returning: result)
+            }
+        }
     }
 }
 #endif

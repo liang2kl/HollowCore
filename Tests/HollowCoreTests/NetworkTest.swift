@@ -63,7 +63,7 @@ struct NetworkTest<R: Request> {
                 testAPI(with: expectations[0])
             }
 #else
-            expectations[0].fulfill()
+            testAPI(with: expectations[0])
             expectations[1].fulfill()
 #endif
         } else {

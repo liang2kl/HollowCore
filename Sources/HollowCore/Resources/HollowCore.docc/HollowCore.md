@@ -59,6 +59,8 @@ do {
 }
 ```
 
+As the type for the error of a `PostListRequest` is `PostListRequest.Error`, the third block will never be reached.
+
 ```swift
 let result = await request.result()
 
@@ -69,8 +71,6 @@ case .failure(let error):
     // Handle error
 }
 ```
-
-As the type for the error of a `PostListRequest` is `PostListRequest.Error`, the third block will never be reached.
 
 #### Publisher
 

@@ -86,7 +86,7 @@ dependencies: [
 ```swift
 let request = PostListRequest(configuration: configuration)
 
-request.performRequest { result in
+request.performRequest { result in  // Swift.Result<ResultData, Error>
     switch result {
     case .success(let data):
         // Handle data
@@ -104,7 +104,7 @@ request.performRequest { result in
 let request = PostListRequest(configuration: configuration)
 
 do {
-    let data = try await request.result()
+    let data = try await request.data() // ResultData
     // Handle result
 } catch let error as PostListRequest.Error {
     // Handle error with specific type
@@ -115,6 +115,13 @@ do {
 } catch {
     // Not reachable
 }
+```
+
+```swift
+let request = PostListRequest(configuration: configuration)
+let result = await request.result() // Swift.Result<ResultData, Error>
+
+switch result {...}
 ```
 
 ### Publisher
