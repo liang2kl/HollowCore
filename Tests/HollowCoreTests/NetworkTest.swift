@@ -37,38 +37,11 @@ struct NetworkTest<R: Request> {
         })
     }
     
-#if swift(>=5.5)
-    @available(macOS 12, iOS 15, watchOS 8, tvOS 15, *)
-    private func testAsyncAPI(with expectation: XCTestExpectation) async {
-        do {
-            let data = try await request.data()
-            expectation.fulfill()
-            if !validate(data) {
-                XCTAssert(false, "Receiving invalid data on async API:\n\(data)")
-            }
-        } catch {
-            expectation.fulfill()
-            XCTAssert(false, "Async call failed with failure \(error)")
-        }
-    }
-#endif
-    
+
     func execute(with expectations: [XCTestExpectation]) {
         print("\n--- Testing API for \(R.self) ---")
         print("CONFIGURATION:\n\(configuration)\n")
-        if #available(macOS 12, iOS 15, watchOS 8, tvOS 15, *) {
-#if swift(>=5.5)
-            async {
-                await testAsyncAPI(with: expectations[1])
-                testAPI(with: expectations[0])
-            }
-#else
-            testAPI(with: expectations[0])
-            expectations[1].fulfill()
-#endif
-        } else {
-            testAPI(with: expectations[0])
-            expectations[1].fulfill()
-        }
+        testAPI(with: expectations[0])
+        expectations[1].fulfill()
     }
 }

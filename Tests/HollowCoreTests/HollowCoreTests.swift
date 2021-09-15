@@ -46,21 +46,7 @@ final class HollowCoreTests: XCTestCase {
         execute(test1)
     }
     
-#if swift(>=5.5)
-    @available(macOS 12, iOS 15, watchOS 8, tvOS 15, *)
-    func testPostDetailWithCache() async {
-        guard let result = try? await PostDetailRequest(configuration: .init(apiRoot: testAPIRoot, token: testToken, postId: 1, includeComments: true)).data() else { return }
-        guard case .new(let post) = result else { return }
-        let test = NetworkTest<PostDetailRequest>(configuration: .init(apiRoot: testAPIRoot, token: testToken, postId: 1, includeComments: true, cachedPost: post), validate: {
-            if case .cached = $0 { return true }
-            if case .new(let newPost) = $0 {
-                return newPost.post.updatedAt > post.post.updatedAt
-            }
-            return true
-        })
-        execute(test)
-    }
-#endif
+
     func testPostList() {
         let test = NetworkTest<PostListRequest>(configuration: .init(apiRoot: testAPIRoot, token: testToken, page: 1))
         execute(test)

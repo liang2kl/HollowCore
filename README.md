@@ -96,34 +96,6 @@ request.performRequest { result in  // Swift.Result<ResultData, Error>
 }
 ```
 
-### Async API
-
-> 要求 macOS 12+、iOS 15+ / Requires macOS 12+ and iOS 15+
-
-```swift
-let request = PostListRequest(configuration: configuration)
-
-do {
-    let data = try await request.data() // ResultData
-    // Handle result
-} catch let error as PostListRequest.Error {
-    // Handle error with specific type
-    switch error {
-    case .tokenExpiredError:
-        ...
-    }
-} catch {
-    // Not reachable
-}
-```
-
-```swift
-let request = PostListRequest(configuration: configuration)
-let result = await request.result() // Swift.Result<ResultData, Error>
-
-switch result {...}
-```
-
 ### Publisher
 
 #### 单个请求 Single Request
